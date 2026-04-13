@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Parkt — Investor Information. Pre-seed round open. Building the operating system for parking.">
+<title>Investors — parkt</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2EC4A0;
+  --teal-btn:  #28B394;
+  --teal-soft: rgba(46,196,160,0.08);
+  --teal-glow: rgba(46,196,160,0.15);
+  --bg:        #111114;
+  --bg2:       #17171A;
+  --card:      #1C1C20;
+  --card2:     #222227;
+  --white:     #EEEEF2;
+  --white2:    #C8C8D0;
+  --muted:     #6E6E7A;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.12);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--white); font-family:'Outfit',sans-serif; -webkit-font-smoothing:antialiased; }
+a { color:inherit; text-decoration:none; }
+.container { width:100%; max-width:1100px; margin:0 auto; padding:0 32px; }
+@media (max-width:640px) { .container { padding:0 20px; } }
+.eyebrow { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--teal); margin-bottom:16px; }
+.teal { color:var(--teal); }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:16px 0; background:#111114; border-bottom:1px solid var(--border); }
+.nav-inner { display:flex; align-items:center; justify-content:space-between; }
+.nav-logo { display:flex; align-items:center; gap:6px; }
+.nav-wordmark { font-size:20px; font-weight:800; color:var(--white); letter-spacing:-0.02em; }
+.nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+.nav-links a { font-size:13px; font-weight:500; color:var(--muted); transition:color 0.2s; }
+.nav-links a:hover { color:var(--white); }
+.nav-links a.active { color:var(--white); }
+.nav-cta { background:var(--teal-btn); color:#000 !important; font-weight:700 !important; padding:8px 18px; border-radius:8px; font-size:13px !important; }
+@media (max-width:768px) { .nav-links { display:none; } }
+
+/* HERO */
+.inv-hero { padding:140px 0 80px; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+.inv-hero::before { content:''; position:absolute; top:-100px; right:-100px; width:700px; height:700px; background:radial-gradient(circle, rgba(46,196,160,0.04) 0%, transparent 65%); border-radius:50%; pointer-events:none; }
+.inv-hero-inner { max-width:780px; }
+.inv-hero h1 { font-size:clamp(40px,6vw,72px); font-weight:900; letter-spacing:-0.03em; line-height:1.05; margin-bottom:24px; }
+.inv-hero p { font-size:18px; color:var(--white2); line-height:1.75; max-width:620px; margin-bottom:40px; }
+.hero-badges { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:48px; }
+.hero-badge { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.15em; padding:6px 14px; border-radius:99px; border:1px solid rgba(46,196,160,0.3); color:var(--teal); background:rgba(46,196,160,0.06); }
+.hero-badge.amber { border-color:rgba(255,179,71,0.3); color:#FFB347; background:rgba(255,179,71,0.06); }
+.hero-disclaimer { font-size:11px; color:var(--muted); line-height:1.6; max-width:600px; padding:14px 16px; background:var(--card); border-radius:10px; border:1px solid var(--border); font-family:'JetBrains Mono',monospace; }
+
+/* STATS */
+.inv-stats { padding:64px 0; background:var(--bg2); border-bottom:1px solid var(--border); }
+.inv-stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+@media (max-width:768px) { .inv-stats-grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px) { .inv-stats-grid { grid-template-columns:1fr; } }
+.stat-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px 24px; }
+.stat-n { font-size:clamp(28px,3vw,38px); font-weight:900; color:var(--teal); letter-spacing:-0.02em; line-height:1; margin-bottom:8px; }
+.stat-l { font-size:13px; color:var(--white2); line-height:1.5; margin-bottom:6px; }
+.stat-src { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:0.08em; }
+
+/* OPPORTUNITY */
+.opportunity { padding:100px 0; background:var(--bg); }
+.opp-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+@media (max-width:768px) { .opp-grid { grid-template-columns:1fr; gap:48px; } }
+.opp-left h2 { font-size:clamp(28px,4vw,46px); font-weight:900; letter-spacing:-0.02em; line-height:1.1; margin-bottom:20px; }
+.opp-left p { font-size:16px; color:var(--white2); line-height:1.75; margin-bottom:16px; }
+.opp-right { display:flex; flex-direction:column; gap:16px; }
+.opp-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px; border-left:3px solid var(--teal); }
+.opp-card-title { font-size:15px; font-weight:700; color:var(--white); margin-bottom:8px; }
+.opp-card-desc { font-size:13px; color:var(--white2); line-height:1.65; }
+
+/* THE MODEL */
+.model { padding:100px 0; background:var(--bg2); border-top:1px solid var(--border); }
+.model-header { text-align:center; max-width:640px; margin:0 auto 56px; }
+.model-header h2 { font-size:clamp(28px,4vw,46px); font-weight:900; letter-spacing:-0.02em; margin-bottom:16px; }
+.model-header p { font-size:17px; color:var(--white2); line-height:1.7; }
+.model-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media (max-width:768px) { .model-grid { grid-template-columns:1fr; } }
+.model-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; position:relative; transition:border-color 0.2s; }
+.model-card:hover { border-color:rgba(46,196,160,0.25); }
+.model-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--teal); border-radius:16px 16px 0 0; }
+.model-num { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--teal); margin-bottom:12px; }
+.model-title { font-size:16px; font-weight:700; color:var(--white); margin-bottom:8px; }
+.model-desc { font-size:13px; color:var(--white2); line-height:1.65; margin-bottom:16px; }
+.model-rate { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal); background:rgba(46,196,160,0.08); border:1px solid rgba(46,196,160,0.2); border-radius:6px; padding:4px 10px; display:inline-block; }
+
+/* TRACTION */
+.traction { padding:100px 0; background:var(--bg); }
+.traction-header { margin-bottom:48px; }
+.traction-header h2 { font-size:clamp(28px,4vw,46px); font-weight:900; letter-spacing:-0.02em; margin-bottom:12px; }
+.traction-header p { font-size:16px; color:var(--white2); max-width:500px; }
+.traction-list { display:flex; flex-direction:column; gap:0; max-width:700px; }
+.traction-item { display:flex; align-items:flex-start; gap:20px; padding:20px 0; border-bottom:1px solid var(--border); }
+.traction-item:last-child { border-bottom:none; }
+.traction-dot { width:10px; height:10px; border-radius:50%; background:var(--teal); flex-shrink:0; margin-top:5px; box-shadow:0 0 6px var(--teal); }
+.traction-dot.pending { background:transparent; border:2px solid var(--muted); box-shadow:none; }
+.traction-text { flex:1; }
+.traction-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.15em; color:var(--teal); margin-bottom:4px; }
+.traction-label.pending { color:var(--muted); }
+.traction-title { font-size:15px; font-weight:600; color:var(--white); margin-bottom:4px; }
+.traction-desc { font-size:13px; color:var(--muted); line-height:1.55; }
+
+/* ESG */
+.esg { padding:64px 0; background:var(--bg2); border-top:1px solid var(--border); }
+.esg-inner { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+@media (max-width:768px) { .esg-inner { grid-template-columns:1fr; gap:32px; } }
+.esg-left h2 { font-size:clamp(22px,3vw,34px); font-weight:900; letter-spacing:-0.02em; margin-bottom:14px; }
+.esg-left p { font-size:15px; color:var(--white2); line-height:1.75; }
+.esg-stats { display:flex; flex-direction:column; gap:12px; }
+.esg-stat { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; display:flex; align-items:center; gap:16px; }
+.esg-stat-n { font-size:22px; font-weight:900; color:var(--teal); letter-spacing:-0.02em; white-space:nowrap; }
+.esg-stat-l { font-size:12px; color:var(--white2); line-height:1.5; }
+
+/* FOUNDER */
+.inv-founder { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
+@media (max-width:768px) { .inv-founder .grid-3 { grid-template-columns:1fr !important; } }
+@media (max-width:768px) { .inv-founder [style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns:1fr !important; } }
+.inv-avatar { width:80px; height:80px; background:linear-gradient(135deg,#1B2825,#0F1A18); border:2px solid rgba(46,196,160,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:900; color:var(--teal); font-family:'Outfit',sans-serif; margin-bottom:20px; }
+.inv-name { font-size:22px; font-weight:800; color:var(--white); letter-spacing:-0.02em; margin-bottom:4px; }
+.inv-title { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--teal); text-transform:uppercase; margin-bottom:20px; }
+.inv-contact { display:flex; flex-direction:column; gap:8px; }
+.inv-contact-link { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--white2); transition:color 0.2s; }
+.inv-contact-link:hover { color:var(--teal); }
+.inv-founder-right p { font-size:16px; color:var(--white2); line-height:1.8; margin-bottom:20px; }
+.inv-creds { display:flex; flex-direction:column; gap:10px; margin-top:32px; }
+.inv-cred { display:flex; align-items:flex-start; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+.inv-cred-dot { width:5px; height:5px; border-radius:50%; background:var(--teal); flex-shrink:0; margin-top:6px; box-shadow:0 0 4px var(--teal); }
+.inv-cred-text { font-size:13px; color:var(--white2); line-height:1.5; }
+.inv-cred-text strong { color:var(--white); }
+
+/* RAISE */
+.raise { padding:100px 0; background:var(--bg2); border-top:1px solid var(--border); }
+.raise-inner { max-width:800px; margin:0 auto; }
+.raise-card { background:linear-gradient(145deg,#1B2825,#111114 60%,#161419); border:1px solid rgba(46,196,160,0.25); border-radius:24px; padding:56px; position:relative; overflow:hidden; }
+.raise-card::before { content:''; position:absolute; top:-60px; right:-60px; width:300px; height:300px; background:radial-gradient(circle,rgba(46,196,160,0.07) 0%,transparent 65%); border-radius:50%; }
+.raise-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--teal); text-transform:uppercase; margin-bottom:12px; }
+.raise-amount { font-size:clamp(36px,5vw,64px); font-weight:900; color:var(--white); letter-spacing:-0.03em; line-height:1; margin-bottom:8px; }
+.raise-sub { font-size:16px; color:var(--teal); font-weight:600; margin-bottom:32px; }
+.raise-details { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:40px; }
+@media (max-width:560px) { .raise-details { grid-template-columns:1fr; } }
+.raise-detail { background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; padding:16px; }
+.raise-detail-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; margin-bottom:6px; }
+.raise-detail-value { font-size:14px; color:var(--white); font-weight:600; line-height:1.4; }
+.raise-ctas { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary { background:var(--teal-btn); color:#000; font-weight:800; padding:15px 30px; border-radius:11px; font-family:'Outfit',sans-serif; font-size:15px; cursor:pointer; border:none; letter-spacing:-0.01em; box-shadow:0 8px 32px rgba(46,196,160,0.25); transition:transform 0.15s,box-shadow 0.15s; display:inline-flex; align-items:center; gap:8px; }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(46,196,160,0.35); }
+.btn-secondary { background:var(--card); color:var(--white2); font-weight:600; padding:15px 30px; border-radius:11px; font-size:15px; border:1px solid var(--border2); transition:border-color 0.2s,color 0.2s; display:inline-flex; align-items:center; gap:8px; }
+.btn-secondary:hover { border-color:rgba(46,196,160,0.3); color:var(--white); }
+.raise-nda { font-size:12px; color:var(--muted); margin-top:16px; font-family:'JetBrains Mono',monospace; }
+
+
+/* INVESTOR MODAL */
+.inv-modal { display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:24px; }
+.inv-modal.open { display:flex; }
+.inv-panel { background:var(--card); border:1px solid var(--border2); border-radius:20px; padding:40px; max-width:520px; width:100%; position:relative; }
+.inv-modal-close { position:absolute; top:16px; right:16px; background:var(--card2); border:1px solid var(--border); color:var(--muted); border-radius:8px; padding:6px 12px; font-size:12px; cursor:pointer; font-family:'Outfit',sans-serif; }
+.inv-modal-close:hover { color:var(--white); }
+.inv-form { display:flex; flex-direction:column; gap:14px; }
+.inv-form label { font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace; letter-spacing:0.1em; display:block; margin-bottom:4px; }
+.inv-form input, .inv-form select, .inv-form textarea { width:100%; background:var(--card2); border:1px solid var(--border2); border-radius:9px; padding:12px 14px; color:var(--white); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border-color 0.2s; }
+.inv-form input:focus, .inv-form select:focus, .inv-form textarea:focus { border-color:rgba(46,196,160,0.4); }
+.inv-submit { background:var(--teal-btn); color:#000; font-weight:800; padding:13px 24px; border-radius:10px; font-size:14px; border:none; cursor:pointer; font-family:'Outfit',sans-serif; width:100%; margin-top:4px; }
+.inv-success { display:none; text-align:center; padding:32px 0; }
+/* FOOTER */
+footer { background:var(--bg); border-top:1px solid var(--border); padding:40px 0 28px; }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.footer-legal { font-size:11px; color:var(--muted); line-height:1.6; }
+.footer-entity { font-family:'JetBrains Mono',monospace; font-size:9px; color:rgba(110,110,122,0.5); text-align:right; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 110 110" fill="none">
+          <path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/>
+          <text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text>
+        </svg>
+        <span class="nav-wordmark">parkt</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#why">Why Parkt</a></li>
+        <li><a href="index.html#how">How It Works</a></li>
+        <li><a href="index.html#app">The App</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="investors.html" class="active">Investors</a></li>
+        <li><a href="index.html#waitlist" class="nav-cta">Join Waitlist</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="inv-hero">
+  <div class="container">
+    <div class="inv-hero-inner">
+      <div class="eyebrow">Investor Information</div>
+      <h1>A $130B market<br>waiting to be<br><span class="teal">connected.</span></h1>
+      <p>Parking is one of the largest and least-digitized industries in America. The supply exists. The demand exists. The coordination layer connecting them does not — yet. Parkt is building it.</p>
+      <div class="hero-badges">
+        <span class="hero-badge">PRE-SEED · NOW OPEN</span>
+        <span class="hero-badge">$750K – $1.25M</span>
+        <span class="hero-badge">MINNEAPOLIS LAUNCH · 2026</span>
+        <span class="hero-badge amber">DECK AVAILABLE UNDER NDA</span>
+      </div>
+      <div class="hero-disclaimer">
+        This page is for informational purposes only and does not constitute an offer to sell, or solicitation of an offer to buy, any security. Any investment offering is made only to accredited investors via formal documentation.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="inv-stats">
+  <div class="container">
+    <div class="inv-stats-grid">
+      <div class="stat-card">
+        <div class="stat-n">$130B+</div>
+        <div class="stat-l">U.S. annual parking market — largely un-digitized</div>
+        <div class="stat-src">IBISWorld · 2024</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-n">$73B</div>
+        <div class="stat-l">Wasted annually by drivers searching for parking</div>
+        <div class="stat-src">INRIX · 2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-n">930M gal</div>
+        <div class="stat-l">Fuel burned every year by drivers circling for spots</div>
+        <div class="stat-src">ParkNav · UCLA Shoup</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-n">6–8x</div>
+        <div class="stat-l">Parking spaces per registered vehicle in the U.S.</div>
+        <div class="stat-src">UCLA Donald Shoup</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPPORTUNITY -->
+<section class="opportunity">
+  <div class="container">
+    <div class="opp-grid">
+      <div class="opp-left">
+        <div class="eyebrow">The Opportunity</div>
+        <h2>The problem<br>isn't supply.<br>It's <span class="teal">coordination.</span></h2>
+        <p>There are more than enough parking spaces in every major American city. The problem is that drivers can't find them, can't reserve them in advance, and can't access them seamlessly when they arrive.</p>
+        <p>Every other transportation category — flights, hotels, rideshare — solved this coordination problem. Parking hasn't. The technology to fix it exists today. What hasn't existed is a platform built to own the full experience.</p>
+        <p>Parkt is that platform.</p>
+      </div>
+      <div class="opp-right">
+        <div class="opp-card">
+          <div class="opp-card-title">The fragmentation problem</div>
+          <div class="opp-card-desc">The average driver in a major U.S. city manages 4+ separate parking apps, none of which provide real-time availability, advance reservation, and seamless gate access in a single experience. The result is wasted time, wasted fuel, and billions of dollars in friction annually.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-title">The digitization gap</div>
+          <div class="opp-card-desc">The U.S. parking market generates over $130B in annual revenue yet remains one of the least digitized consumer categories in the economy. Most transactions still involve a human attendant, a cash payment, or a broken kiosk. The infrastructure is ready for a technology layer — it just doesn't exist yet.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-title">The timing</div>
+          <div class="opp-card-desc">Mobile payment adoption has crossed the threshold that makes a parking platform viable at scale. GPS accuracy, computer vision for plate recognition, and real-time inventory APIs are all mature and affordable. The window to build the category-defining platform is open right now.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-title">The ESG dimension</div>
+          <div class="opp-card-desc">930 million gallons of fuel burn every year from drivers circling for parking — one of the most avoidable sources of urban vehicle emissions. Every reservation made through Parkt eliminates a search loop. At scale, this is a measurable, auditable environmental outcome that institutional investors and corporate partners increasingly require.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE MODEL -->
+<section class="model">
+  <div class="container">
+    <div class="model-header">
+      <div class="eyebrow">Business Model</div>
+      <h2>Multiple revenue streams.<br>All additive.</h2>
+      <p>Parkt's model is designed to grow margin over time as the platform scales from a direct marketplace to a full ecosystem. Each stage builds on the one before it.</p>
+    </div>
+    <div class="model-grid">
+      <div class="model-card">
+        <div class="model-num">STREAM 01</div>
+        <div class="model-title">Transaction Revenue</div>
+        <div class="model-desc">Parkt earns revenue on every parking transaction processed through the platform. Drivers pay once. Parkt manages the economics on both sides.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-num">STREAM 02</div>
+        <div class="model-title">Operator Platform</div>
+        <div class="model-desc">Parking operators and property managers access Parkt's management tools and analytics on a recurring basis. Sticky, scalable, and high-margin as the operator network grows.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-num">STREAM 03</div>
+        <div class="model-title">Platform Services</div>
+        <div class="model-desc">Additional revenue streams emerge naturally as platform scale creates new value for both operators and drivers. The full model is detailed in the investor deck.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACTION -->
+<section class="traction">
+  <div class="container">
+    <div class="traction-header">
+      <div class="eyebrow">Traction &amp; Milestones</div>
+      <h2>Built before<br>we raised a dollar.</h2>
+      <p>Everything below was built by the founding team without external capital. This is what Day 1 of a funded Parkt looks like.</p>
+    </div>
+    <div class="traction-list">
+      <div class="traction-item">
+        <div class="traction-dot"></div>
+        <div class="traction-text">
+          <div class="traction-label">COMPLETE ✓</div>
+          <div class="traction-title">Parkt LLC formed — Minnesota Secretary of State</div>
+          <div class="traction-desc">File No. 1568208300021 · EIN 41-5321294 · Excelsior, MN</div>
+        </div>
+      </div>
+      <div class="traction-item">
+        <div class="traction-dot"></div>
+        <div class="traction-text">
+          <div class="traction-label">COMPLETE ✓</div>
+          <div class="traction-title">Brand system, product architecture, and legal framework complete</div>
+          <div class="traction-desc">Full business plan, investor deck, NDA, terms of service, privacy policy, host agreement, and driver booking terms drafted and ready for attorney review.</div>
+        </div>
+      </div>
+      <div class="traction-item">
+        <div class="traction-dot"></div>
+        <div class="traction-text">
+          <div class="traction-label">COMPLETE ✓</div>
+          <div class="traction-title">getparkt.com live · @getparkt secured across platforms</div>
+          <div class="traction-desc">Primary domain deployed. Instagram and X/Twitter handles secured. LinkedIn company page established.</div>
+        </div>
+      </div>
+      <div class="traction-item">
+        <div class="traction-dot"></div>
+        <div class="traction-text">
+          <div class="traction-label">COMPLETE ✓</div>
+          <div class="traction-title">Technology stack selected and documented</div>
+          <div class="traction-desc">React Native · Node.js · PostgreSQL · Stripe Connect · Mapbox · Firebase · AWS · full architecture ready for technical co-founder to build against.</div>
+        </div>
+      </div>
+      <div class="traction-item">
+        <div class="traction-dot pending"></div>
+        <div class="traction-text">
+          <div class="traction-label pending">IN PROGRESS</div>
+          <div class="traction-title">Technical co-founder search underway</div>
+          <div class="traction-desc">Outreach underway through the Minneapolis tech and startup community. Target profile: marketplace experience, full-stack mobile, equity-motivated.</div>
+        </div>
+      </div>
+      <div class="traction-item">
+        <div class="traction-dot pending"></div>
+        <div class="traction-text">
+          <div class="traction-label pending">Q2–Q3 2026</div>
+          <div class="traction-title">Pre-seed close · MVP development begins</div>
+          <div class="traction-desc">Target raise: $750K–$1.25M. Use of funds: engineering (40%), operator acquisition (26%), legal/compliance (10%), infrastructure (6%), operations (18%).</div>
+        </div>
+      </div>
+      <div class="traction-item">
+        <div class="traction-dot pending"></div>
+        <div class="traction-text">
+          <div class="traction-label pending">AUG–SEP 2026</div>
+          <div class="traction-title">Summer 2026 event pilot — Minneapolis metro</div>
+          <div class="traction-desc">First live transaction data from a high-density event environment in the Minneapolis metro. The proof-of-concept moment before seed conversations begin.</div>
+        </div>
+      </div>
+      <div class="traction-item">
+        <div class="traction-dot pending"></div>
+        <div class="traction-text">
+          <div class="traction-label pending">Q4 2026 – Q1 2027</div>
+          <div class="traction-title">Seed round · 1,500–2,000 active spaces in MSP</div>
+          <div class="traction-desc">Target: $4–6M. Expand team. Launch full MSP market. Begin city #2 planning.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESG -->
+<section class="esg">
+  <div class="container">
+    <div class="esg-inner">
+      <div class="esg-left">
+        <div class="eyebrow">ESG Impact</div>
+        <h2>The environmental<br>case is built in.</h2>
+        <p>Parkt is not an environmental company. But the environmental impact of solving the parking coordination problem is real, measurable, and significant — and it is a direct consequence of the core product working as designed.</p>
+        <p style="margin-top:14px;">Every pre-arrival reservation eliminates a search loop. No circling. No wasted fuel. At scale this becomes an auditable ESG metric that institutional investors and corporate fleet operators increasingly require.</p>
+      </div>
+      <div class="esg-stats">
+        <div class="esg-stat">
+          <div class="esg-stat-n">930M</div>
+          <div class="esg-stat-l">Gallons of fuel burned annually by U.S. drivers searching for parking — eliminated when Parkt works as designed</div>
+        </div>
+        <div class="esg-stat">
+          <div class="esg-stat-n">~8.1M</div>
+          <div class="esg-stat-l">Metric tons of CO₂ equivalent — the avoidable emissions cost of the parking search loop</div>
+        </div>
+        <div class="esg-stat">
+          <div class="esg-stat-n">Per txn</div>
+          <div class="esg-stat-l">Environmental impact is quantifiable at the transaction level — auditable, reportable, and scalable with platform growth</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="inv-founder">
+  <div class="container">
+    <div class="eyebrow" style="margin-bottom:40px;">The Founder</div>
+
+    <!-- FOUNDER IDENTITY CARD -->
+    <div style="background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:36px;display:flex;align-items:center;gap:32px;margin-bottom:40px;flex-wrap:wrap;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);border-radius:20px 20px 0 0;"></div>
+      <div style="width:80px;height:80px;background:linear-gradient(135deg,#1B2825,#0F1A18);border:2px solid rgba(46,196,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:var(--teal);font-family:'Outfit',sans-serif;flex-shrink:0;">GK</div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:24px;font-weight:800;color:var(--white);letter-spacing:-0.02em;margin-bottom:4px;">Grant M. Kolb</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--teal);text-transform:uppercase;margin-bottom:12px;">Founder &amp; CEO</div>
+        <a href="https://getparkt.com" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--white2);transition:color 0.2s;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--white2)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          getparkt.com
+        </a>
+      </div>
+      <button onclick="openInvModal('deck')" style="background:var(--teal-btn);color:#000;font-weight:700;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:14px;white-space:nowrap;flex-shrink:0;">
+        Request the Deck &#x2192;
+      </button>
+    </div>
+
+    <!-- FOUNDER NARRATIVE -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:0;">
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:24px;">
+        <div style="font-size:14px;color:var(--white2);line-height:1.75;">Grant Kolb built Parkt because he couldn&rsquo;t stop thinking about a problem he watched repeat itself in every city he traveled to for work. Airports, stadiums, city centers across the country &mdash; the parking experience was identical everywhere: multiple apps, no real-time information, no advance reservation, and a transaction that still required a human at a booth. The infrastructure existed. The coordination layer did not.</div>
+      </div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:24px;">
+        <div style="font-size:14px;color:var(--white2);line-height:1.75;">Rather than wait for someone else to build it, he built it himself &mdash; completing the full business plan, product architecture, legal framework, brand system, and go-to-market strategy before raising a dollar of external capital. Six years as an early employee at a fast-growing reinsurance brokerage taught him how to price risk, build relationships in complex markets, and scale a business without a blueprint. Those skills transfer directly to building a marketplace.</div>
+      </div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:24px;">
+        <div style="font-size:14px;color:var(--white2);line-height:1.75;">He didn&rsquo;t build Parkt because parking is a good market. He built it because the problem is real, the solution is achievable, and nobody has done it right yet. Minneapolis-based, Minnesota-focused to start, with a clear national expansion thesis. The beachhead market is the city he knows best. The ambition is every parking market in the country.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RAISE -->
+<section class="raise">
+  <div class="container">
+    <div class="raise-inner">
+      <div class="eyebrow" style="text-align:center;margin-bottom:40px;">Request the Deck</div>
+      <div class="raise-card">
+        <div class="raise-label">Pre-Seed Round · Now Open</div>
+        <div class="raise-amount">$750K – $1.25M</div>
+        <div class="raise-sub">Pre-seed equity · Accredited investors only</div>
+        <div class="raise-details">
+          <div class="raise-detail">
+            <div class="raise-detail-label">Round Type</div>
+            <div class="raise-detail-value">Pre-seed equity · Delaware C-corp conversion pre-close</div>
+          </div>
+          <div class="raise-detail">
+            <div class="raise-detail-label">Primary Use of Funds</div>
+            <div class="raise-detail-value">Engineering (40%) · Operator acquisition (26%) · Legal &amp; compliance (10%) · Infrastructure &amp; ops (24%)</div>
+          </div>
+          <div class="raise-detail">
+            <div class="raise-detail-label">Launch Market</div>
+            <div class="raise-detail-value">Minneapolis–St. Paul metro · Summer 2026 event pilot · Target 1,500–2,000 active spaces Year 1</div>
+          </div>
+          <div class="raise-detail">
+            <div class="raise-detail-label">Seed Target</div>
+            <div class="raise-detail-value">$4–6M · Q4 2026 – Q1 2027 · National expansion begins</div>
+          </div>
+        </div>
+        <div class="raise-ctas">
+          <a href="/cdn-cgi/l/email-protection#1671647778627d797a74272556717b777f7a3875797b296563747c7375622b4677647d6236f49682365f78607365627964365273757d3644736763736562" class="btn-primary">
+            Request the Deck
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/cdn-cgi/l/email-protection#8cebfeede2f8e7e3e0eebdbfccebe1ede5e0a2efe3e1b3fff9eee6e9eff8b1dcedfee7f8ac6e0c18acc5e2fae9fff8e3feaccfede0e0acdee9fdf9e9fff8" class="btn-secondary">
+            Schedule a Call
+          </a>
+        </div>
+        <div class="raise-nda">Full business plan and investor deck available under NDA &middot; Accredited investors only</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- INVESTOR CONTACT MODAL -->
+<div class="inv-modal" id="inv-modal">
+  <div class="inv-panel">
+    <button class="inv-modal-close" onclick="closeInvModal()">&#x2715; Close</button>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--teal);text-transform:uppercase;margin-bottom:8px;" id="inv-modal-label">Investor Inquiry</div>
+    <div style="font-size:20px;font-weight:800;color:var(--white);letter-spacing:-0.02em;margin-bottom:20px;" id="inv-modal-title">Request the Deck</div>
+    <form name="investor-inquiry" method="POST" data-netlify="true" id="inv-form" class="inv-form">
+      <input type="hidden" name="form-name" value="investor-inquiry">
+      <input type="hidden" name="inquiry-type" id="inv-inquiry-type" value="deck">
+      <div>
+        <label>YOUR NAME</label>
+        <input type="text" name="name" required placeholder="Full name">
+      </div>
+      <div>
+        <label>EMAIL ADDRESS</label>
+        <input type="email" name="email" required placeholder="your@email.com">
+      </div>
+      <div>
+        <label>FIRM / ORGANIZATION (optional)</label>
+        <input type="text" name="firm" placeholder="Fund name, family office, or individual">
+      </div>
+      <div>
+        <label>MESSAGE (optional)</label>
+        <textarea name="message" rows="3" placeholder="Tell us about your investment focus or how you'd like to connect..."></textarea>
+      </div>
+      <button type="submit" class="inv-submit">Send Request &#x2192;</button>
+    </form>
+    <div class="inv-success" id="inv-success">
+      <div style="font-size:32px;margin-bottom:12px;">&#x2713;</div>
+      <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;">Request received</div>
+      <div style="font-size:13px;color:var(--muted);">We'll follow up within 24 hours with next steps.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        © 2026 Parkt LLC. All rights reserved.<br>
+        This page does not constitute an offer to sell or solicitation of an offer to buy any security. Any investment opportunity is offered only to accredited investors via formal documentation. 
