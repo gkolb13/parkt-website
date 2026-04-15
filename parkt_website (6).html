@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Parkt — The operating system for parking. Find, reserve, and pay for parking in seconds. Coming soon to Minneapolis.">
+<meta property="og:title" content="parkt — The Operating System for Parking">
+<meta property="og:description" content="Find, reserve, and pay for parking in seconds. No friction. No circling. Just park.">
+<title>parkt — The Operating System for Parking</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   LOCKED BRAND SYSTEM
+═══════════════════════════════════════════ */
+:root {
+  --teal:       #2EC4A0;
+  --teal-btn:   #28B394;
+  --teal-glow:  rgba(46,196,160,0.15);
+  --teal-soft:  rgba(46,196,160,0.08);
+  --bg:         #111114;
+  --bg2:        #17171A;
+  --card:       #1C1C20;
+  --card2:      #222227;
+  --white:      #EEEEF2;
+  --white2:     #C8C8D0;
+  --muted:      #6E6E7A;
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.12);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display:block; max-width:100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY SCALE
+═══════════════════════════════════════════ */
+.mono { font-family: 'JetBrains Mono', monospace; }
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 16px;
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════ */
+.container {
+  width: 100%; max-width: 1100px;
+  margin: 0 auto; padding: 0 32px;
+}
+@media (max-width: 640px) { .container { padding: 0 20px; } }
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: #111114;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-wordmark {
+  font-size: 20px; font-weight: 800;
+  color: var(--white); letter-spacing: -0.02em;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px; font-weight: 500;
+  color: var(--muted); transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--teal-btn);
+  color: #000 !important;
+  font-weight: 700 !important;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px !important;
+  transition: opacity 0.2s !important;
+}
+.nav-cta:hover { opacity: 0.88; color: #000 !important; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* Hamburger menu */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 57px;
+  left: 0; right: 0;
+  background: #111114;
+  border-bottom: 1px solid var(--border);
+  z-index: 99;
+  padding: 16px 24px 24px;
+  flex-direction: column;
+  gap: 0;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--white2);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.nav-mobile-menu a:last-child { border-bottom: none; }
+.nav-mobile-menu a:hover { color: var(--teal); }
+.nav-mobile-menu .mob-cta {
+  margin-top: 16px;
+  background: var(--teal-btn);
+  color: #000 !important;
+  font-weight: 700 !important;
+  padding: 14px 20px;
+  border-radius: 10px;
+  text-align: center;
+  border-bottom: none !important;
+}
+
+@media (max-width: 768px) {
+  .nav-hamburger { display: flex; }
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden;
+  padding: 120px 0 80px;
+}
+@media (max-width: 768px) {
+  #hero { background: #111114; }
+}
+@media (max-width: 768px) {
+  #hero { min-height: 0 !important; padding: 100px 0 48px !important; }
+}
+
+/* Background — dark left, map right */
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+}
+
+/* Map layer — dark stylized city grid on the right half */
+.hero-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  /* Layered: dark map base + left fade overlay */
+  background:
+    /* Left-to-right fade: solid black left, transparent right */
+    linear-gradient(to right,
+      #111114 0%,
+      #111114 38%,
+      rgba(17,17,20,0.85) 52%,
+      rgba(17,17,20,0.3) 68%,
+      rgba(17,17,20,0.05) 100%
+    );
+  z-index: 2;
+}
+
+/* Map tile background — right side */
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  /* Multi-layer map: large blocks (city districts), medium roads, fine grid */
+  background-color: #181C1A;
+  background-image:
+    /* Fine street grid */
+    linear-gradient(rgba(46,196,160,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46,196,160,0.06) 1px, transparent 1px),
+    /* Medium roads */
+    linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px),
+    /* City blocks / district shading */
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size:
+    18px 18px,
+    18px 18px,
+    72px 72px,
+    72px 72px,
+    216px 216px,
+    216px 216px;
+  z-index: 1;
+}
+
+/* City block fills — subtle dark rectangles suggesting urban grid */
+.hero-map-blocks {
+  position: absolute; inset: 0;
+  z-index: 1; pointer-events: none;
+  overflow: hidden;
+}
+.hero-map-block {
+  position: absolute;
+  background: rgba(255,255,255,0.022);
+  border-radius: 2px;
+}
+
+/* Teal glow around user position area */
+.hero-map-glow {
+  position: absolute;
+  z-index: 2; pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,196,160,0.12) 0%, transparent 65%);
+}
+
+/* Floating pins — decorative */
+@media (max-width: 768px) {
+  .pin { display: none !important; visibility: hidden !important; opacity: 0 !important; }
+  .hero-map-glow { display: none !important; }
+  .hero-map-blocks { display: none !important; }
+  #hero { min-height: 0 !important; padding: 100px 0 48px !important; }
+  #hero .hero-bg { display: none; }
+  .hero-content { max-width: 100%; }
+}
+.pin {
+  position: absolute;
+  display: flex; flex-direction: column; align-items: center;
+  opacity: 0; animation: pinFloat 1s ease forwards;
+  pointer-events: none;
+}
+@keyframes pinFloat {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.pin-bubble {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 700; color: var(--white);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+.pin-bubble.active {
+  background: var(--teal); color: #000;
+  box-shadow: 0 0 0 4px rgba(46,196,160,0.15), 0 4px 20px rgba(0,0,0,0.4);
+}
+.pin-stem { width:1.5px; height:8px; background:var(--teal); margin-top:2px; }
+.pin-dot  { width:5px; height:5px; border-radius:50%; background:rgba(46,196,160,0.3); margin-top:1px; }
+
+/* Hero content */
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 700px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--teal-soft);
+  border: 1px solid rgba(46,196,160,0.2);
+  border-radius: 99px;
+  padding: 6px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--teal);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 6px var(--teal);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 4px var(--teal); }
+  50%      { box-shadow: 0 0 12px var(--teal); }
+}
+
+.hero-h1 {
+  font-size: clamp(44px, 7vw, 82px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+}
+.hero-h1 .teal { color: var(--teal); }
+
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: var(--white2);
+  line-height: 1.65;
+  max-width: 540px;
+  margin-bottom: 40px;
+  font-weight: 400;
+  opacity: 0; animation: fadeUp 0.6s ease 0.3s forwards;
+}
+
+.hero-actions {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.6s ease 0.4s forwards;
+}
+.btn-primary {
+  background: var(--teal-btn);
+  color: #000; font-weight: 800;
+  padding: 15px 32px; border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px; cursor: pointer;
+  border: none; letter-spacing: -0.01em;
+  box-shadow: 0 8px 32px rgba(46,196,160,0.25);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(46,196,160,0.35);
+}
+.btn-secondary {
+  color: var(--white2); font-weight: 600;
+  font-size: 15px; padding: 15px 8px;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.btn-secondary:hover { color: var(--white); }
+
+/* Hero stats */
+.hero-stats {
+  display: flex; gap: 40px; flex-wrap: wrap;
+  margin-top: 64px; padding-top: 40px;
+  border-top: 1px solid var(--border);
+  opacity: 0; animation: fadeUp 0.6s ease 0.5s forwards;
+}
+@media (max-width: 768px) {
+  .hero-stats { gap: 24px; margin-top: 40px; padding-top: 28px; display: grid; grid-template-columns: 1fr 1fr; }
+}
+.hero-stat {}
+.hero-stat-n {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800; color: var(--teal);
+  letter-spacing: -0.02em; line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-l {
+  font-size: 12px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:none; }
+}
+
+/* ═══════════════════════════════════════════
+   WHY PARKT — PROBLEM
+═══════════════════════════════════════════ */
+#why {
+  padding: 120px 0;
+  background: var(--bg2);
+  position: relative;
+  overflow: hidden;
+}
+#why::before {
+  content: '';
+  position: absolute;
+  bottom: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(46,196,160,0.04) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+@media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+.why-left h2 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800; letter-spacing: -0.02em;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.why-left p {
+  font-size: 17px; color: var(--white2);
+  line-height: 1.75; margin-bottom: 32px;
+}
+
+.why-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.why-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+.why-stat-n {
+  font-size: 28px; font-weight: 800;
+  color: var(--teal); letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.why-stat-l { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.why-stat-src {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: rgba(110,110,122,0.6);
+  margin-top: 6px;
+}
+
+/* Problem visual — right side */
+.problem-visual {
+  position: relative;
+}
+.problem-card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.problem-card::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0;
+  height: 3px; background: var(--teal);
+}
+.pc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em;
+  color: var(--teal); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.pc-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.pc-row:last-child { border-bottom: none; }
+.pc-row-label { color: var(--white2); }
+.pc-row-val { font-weight: 700; color: var(--white); }
+.pc-row-val.bad { color: #FF6B6B; }
+.pc-row-val.good { color: var(--teal); }
+
+/* ═══════════════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════════════ */
+#how {
+  padding: 120px 0;
+  background: var(--bg);
+}
+.how-header { text-align: center; margin-bottom: 72px; }
+.how-header h2 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800; letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.how-header p {
+  font-size: 17px; color: var(--white2);
+  max-width: 480px; margin: 0 auto; line-height: 1.65;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border-radius: 20px; overflow: hidden;
+}
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .steps { grid-template-columns: 1fr; }
+}
+
+.step {
+  background: var(--bg);
+  padding: 36px 28px;
+  position: relative;
+  transition: background 0.2s;
+}
+.step:hover { background: var(--card); }
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em;
+  color: var(--teal); margin-bottom: 16px;
+}
+.step-icon {
+  width: 48px; height: 48px;
+  background: var(--teal-soft);
+  border: 1px solid rgba(46,196,160,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.step-icon svg { width: 22px; height: 22px; }
+.step h3 {
+  font-size: 17px; font-weight: 700;
+  color: var(--white); margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.step p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.step-arrow {
+  position: absolute; top: 50%; right: -1px;
+  transform: translateY(-50%);
+  width: 24px; height: 24px;
+  background: var(--teal);
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  z-index: 2;
+}
+@media (max-width: 768px) { .step-arrow { display: none; } }
+
+/* ═══════════════════════════════════════════
+   APP SCREENSHOTS
+═══════════════════════════════════════════ */
+#app {
+  padding: 120px 0;
+  background: var(--bg2);
+  overflow: hidden;
+}
+.app-header { text-align: center; margin-bottom: 64px; }
+.app-header h2 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.app-header p { font-size: 17px; color: var(--white2); max-width: 480px; margin: 0 auto; }
+
+/* Phone showcase — three phones perspective */
+.phone-showcase {
+  display: flex; align-items: flex-end;
+  justify-content: center; gap: 0;
+  position: relative;
+}
+
+.phone-frame {
+  width: 200px; height: 420px;
+  background: var(--bg);
+  border-radius: 32px;
+  border: 1.5px solid var(--border2);
+  overflow: hidden; position: relative; flex-shrink: 0;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.07);
+}
+.phone-frame::before {
+  content:''; position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  width:56px; height:4px; background:#1A1A1E; border-radius:99px; z-index:20;
+}
+.phone-frame.left  { transform: perspective(700px) rotateY(12deg) translateX(18px) scale(0.88); transform-origin: right center; filter: brightness(0.72); z-index:1; margin-right:-22px; }
+.phone-frame.center{ transform: perspective(700px) scale(1); z-index:5; }
+.phone-frame.right { transform: perspective(700px) rotateY(-12deg) translateX(-18px) scale(0.88); transform-origin: left center; filter: brightness(0.72); z-index:1; margin-left:-22px; }
+
+/* Phone screen content */
+.ps { width:100%; height:100%; display:flex; flex-direction:column; overflow:hidden; }
+
+/* Map screen */
+.ps-map { background:#16161A; position:relative; flex:1; }
+.ps-map-grid { position:absolute;inset:0; background-image:linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px); background-size:20px 20px; }
+.ps-road-h { position:absolute;height:4px;background:rgba(255,255,255,0.08); }
+.ps-road-v { position:absolute;width:4px;background:rgba(255,255,255,0.08); }
+.ps-user { position:absolute;width:10px;height:10px;background:var(--teal);border-radius:50%;border:2px solid #16161A;box-shadow:0 0 0 4px rgba(46,196,160,0.2); }
+.ps-pin { position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:5; }
+.ps-pin-b { display:flex;align-items:center;gap:4px;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:700; }
+.ps-pin-b.a { background:var(--teal);color:#000;box-shadow:0 0 0 3px rgba(46,196,160,0.2); }
+.ps-pin-b.d { background:var(--card2);color:var(--white);border:1px solid rgba(255,255,255,0.08); }
+.ps-pin-stem { width:1.5px;height:5px;margin-top:1px; }
+.ps-sheet { background:var(--card);border-top:1px solid var(--border2);padding:8px 12px 12px;border-radius:16px 16px 0 0; }
+.ps-pill { width:24px;height:2.5px;background:var(--card2);border-radius:99px;margin:0 auto 10px; }
+.ps-spot { display:flex;align-items:center;gap:8px;padding:8px;background:var(--card2);border-radius:10px;margin-bottom:6px;border:1px solid rgba(46,196,160,0.15); }
+.ps-spot-icon { width:28px;height:28px;border-radius:7px;background:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.ps-spot-name { font-size:10px;font-weight:600;color:var(--white); }
+.ps-spot-sub { font-size:8.5px;color:var(--teal);margin-top:1px; }
+.ps-spot-price { font-size:12px;font-weight:800;color:var(--white);margin-left:auto;flex-shrink:0; }
+.ps-find-btn { width:100%;background:var(--teal-btn);border:none;border-radius:9px;padding:11px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:#000;margin-top:8px; }
+
+/* Reserve screen */
+.ps-reserve { background:var(--bg);display:flex;flex-direction:column;overflow:hidden; }
+.ps-res-nav { padding:28px 12px 10px;display:flex;align-items:center;gap:8px; }
+.ps-res-back { width:24px;height:24px;background:var(--card2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--white2);flex-shrink:0; }
+.ps-res-title { font-size:13px;font-weight:700;color:var(--white); }
+.ps-res-body { flex:1;padding:0 12px;overflow:hidden; }
+.ps-res-spot { background:var(--card);border-radius:10px;padding:10px;display:flex;gap:8px;margin-bottom:10px;border:1px solid rgba(46,196,160,0.2); }
+.ps-res-price { font-size:28px;font-weight:800;color:var(--teal);text-align:right;letter-spacing:-0.02em; }
+.ps-res-sub { font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace; }
+.ps-time { background:var(--card);border-radius:9px;padding:9px 10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border:1px solid var(--border); }
+.ps-time-b {}
+.ps-time-l { font-size:7.5px;color:var(--muted);font-family:'JetBrains Mono',monospace; }
+.ps-time-v { font-size:11px;font-weight:700;color:var(--white); }
+.ps-receipt { background:var(--card);border-radius:9px;padding:9px;margin-bottom:8px;border:1px solid var(--border); }
+.ps-rr { display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:9.5px; }
+.ps-rr:last-child { border-bottom:none; }
+.ps-rr-l { color:var(--muted); }
+.ps-rr-v { font-weight:600;color:var(--white); }
+.ps-rr.total .ps-rr-v { color:var(--teal);font-weight:800;font-size:11px; }
+.ps-cta-btn { width:100%;background:var(--teal-btn);border:none;border-radius:9px;padding:12px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:#000; }
+
+/* Wallet screen */
+.ps-wallet { background:var(--bg);display:flex;flex-direction:column;overflow:hidden; }
+.ps-w-top { padding:28px 12px 12px;display:flex;justify-content:space-between;align-items:flex-start; }
+.ps-w-title { font-size:18px;font-weight:800;color:var(--white);letter-spacing:-0.02em; }
+.ps-w-sub { font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);margin-top:1px; }
+.ps-bal-card { margin:0 12px;background:linear-gradient(145deg,#1B2825,#141C1A,#161419);border-radius:14px;border:1px solid rgba(46,196,160,0.18);padding:14px;position:relative;overflow:hidden; }
+.ps-bal-card::before { content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(46,196,160,0.12) 0%,transparent 65%);border-radius:50%; }
+.ps-bal-card::after { content:'P';position:absolute;bottom:-4px;right:10px;font-family:'Outfit',sans-serif;font-size:52px;font-weight:900;color:rgba(46,196,160,0.05);line-height:1; }
+.ps-bal-ey { font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.18em;color:rgba(46,196,160,0.7);text-transform:uppercase;margin-bottom:2px; }
+.ps-bal-amt { font-size:32px;font-weight:800;color:var(--white);letter-spacing:-0.03em;line-height:1;margin-bottom:2px; }
+.ps-bal-amt span { font-size:16px;font-weight:600;color:var(--teal);vertical-align:super; }
+.ps-bal-rec { font-size:9px;color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace;margin-bottom:10px; }
+.ps-tier { display:flex;align-items:center;gap:5px; }
+.ps-tier-dot { width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 4px var(--teal); }
+.ps-tier-name { font-size:10px;font-weight:600;color:var(--teal); }
+.ps-w-acts { display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 12px; }
+.ps-w-act { background:var(--card2);border-radius:9px;padding:9px;border:1px solid var(--border); }
+.ps-w-act-icon { font-size:13px;margin-bottom:3px; }
+.ps-w-act-name { font-size:9.5px;font-weight:600;color:var(--white); }
+.ps-w-act-sub { font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--muted); }
+.ps-acts-list { flex:1;padding:0 12px;overflow:hidden; }
+.ps-act-hdr { font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:7px; }
+.ps-act-item { display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04); }
+.ps-act-ico { width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0; }
+.ps-act-ico.in { background:rgba(46,196,160,0.1); }
+.ps-act-ico.out { background:rgba(255,255,255,0.04); }
+.ps-act-name { font-size:10px;font-weight:500;color:var(--white); }
+.ps-act-date { font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--muted);margin-top:1px; }
+.ps-act-amt { font-size:11px;font-weight:700;margin-left:auto; }
+.ps-act-amt.in { color:var(--teal); }
+.ps-act-amt.out { color:var(--muted); }
+
+/* Nav bar */
+.ps-nav { height:50px;display:flex;align-items:center;background:var(--card);border-top:1px solid var(--border);padding:0 4px;flex-shrink:0; }
+.ps-nav-i { flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0; }
+.ps-nav-icon { font-size:16px; }
+.ps-nav-lbl { font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--muted); }
+.ps-nav-i.on .ps-nav-lbl { color:var(--teal); }
+.ps-nav-pip { width:3px;height:3px;border-radius:50%;background:var(--teal);margin-top:-4px; }
+
+/* Status bar */
+.ps-sbar { position:absolute;top:0;left:0;right:0;height:30px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 14px 5px;z-index:20;font-size:8px;font-weight:600;color:var(--white2);font-family:'JetBrains Mono',monospace; }
+
+/* ═══════════════════════════════════════════
+   INVESTOR SECTION
+═══════════════════════════════════════════ */
+#investors {
+  padding: 120px 0;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+.investor-header { text-align: center; margin-bottom: 64px; }
+.investor-header h2 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.investor-header p { font-size: 17px; color: var(--white2); max-width: 520px; margin: 0 auto; }
+
+
+/* Raise banner */
+.raise-banner {
+  background: linear-gradient(135deg, #1B2825 0%, #111114 60%, #161419 100%);
+  border: 1px solid rgba(46,196,160,0.2);
+  border-radius: 20px; padding: 48px 56px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 80px; flex-wrap: wrap;
+  position: relative; overflow: hidden;
+  max-width: 900px; margin: 0 auto;
+}
+.raise-left { flex: 0 0 auto; max-width: 380px; }
+.raise-right { flex: 0 0 auto; }
+.raise-banner::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(46,196,160,0.1) 0%, transparent 65%);
+  border-radius: 50%; pointer-events: none;
+}
+.raise-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em;
+  color: var(--teal); text-transform: uppercase; margin-bottom: 10px;
+}
+.raise-amount {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900; color: var(--white);
+  letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px;
+}
+.raise-desc { font-size: 15px; color: var(--white2); max-width: 380px; line-height: 1.6; }
+.raise-right {
+  display: flex; flex-direction: column; gap: 12px; flex-shrink: 0;
+}
+.raise-detail {
+  display: flex; align-items: center; gap: 12px;
+}
+.raise-detail-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); flex-shrink: 0;
+}
+.raise-detail-text { font-size: 14px; color: var(--white2); }
+.raise-cta {
+  margin-top: 8px;
+  background: var(--teal-btn);
+  color: #000; font-weight: 800;
+  padding: 13px 28px; border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; cursor: pointer;
+  border: none; display: inline-block;
+  transition: opacity 0.2s;
+}
+.raise-cta:hover { opacity: 0.88; }
+
+/* ═══════════════════════════════════════════
+   WAITLIST
+═══════════════════════════════════════════ */
+#waitlist {
+  padding: 120px 0;
+  background: var(--bg2);
+  position: relative; overflow: hidden;
+}
+#waitlist::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(ellipse, rgba(46,196,160,0.06) 0%, transparent 65%);
+  border-radius: 50%; pointer-events: none;
+}
+.waitlist-inner {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 580px; margin: 0 auto;
+}
+.waitlist-inner h2 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900; letter-spacing: -0.03em;
+  line-height: 1.05; margin-bottom: 16px;
+}
+.waitlist-inner h2 .teal { color: var(--teal); }
+.waitlist-inner p {
+  font-size: 17px; color: var(--white2);
+  line-height: 1.65; margin-bottom: 40px;
+}
+.waitlist-form {
+  display: flex; gap: 10px; max-width: 460px;
+  margin: 0 auto 16px; flex-wrap: wrap;
+}
+.waitlist-input {
+  flex: 1; min-width: 200px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px; color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.waitlist-input::placeholder { color: var(--muted); }
+.waitlist-input:focus { border-color: var(--teal); }
+.waitlist-btn {
+  background: var(--teal-btn);
+  color: #000; font-weight: 800;
+  padding: 14px 24px; border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px; cursor: pointer;
+  border: none; white-space: nowrap;
+  box-shadow: 0 6px 24px rgba(46,196,160,0.25);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.waitlist-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 32px rgba(46,196,160,0.35); }
+.waitlist-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* Success state */
+.waitlist-success {
+  display: none;
+  background: rgba(46,196,160,0.1);
+  border: 1px solid rgba(46,196,160,0.25);
+  border-radius: 12px; padding: 16px 24px;
+  font-size: 15px; color: var(--teal);
+  font-weight: 600; max-width: 460px; margin: 0 auto;
+}
+
+/* City tags */
+.city-tags {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; margin-top: 40px; flex-wrap: wrap;
+}
+.city-tag {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 99px; padding: 6px 14px;
+  font-size: 12px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+.city-tag.active {
+  border-color: rgba(46,196,160,0.3);
+  color: var(--teal);
+  background: var(--teal-soft);
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 48px 0 32px;
+}
+.footer-top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 40px; flex-wrap: wrap;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand { max-width: 280px; }
+.footer-logo { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+.footer-logo-text { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
+.footer-tagline { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.footer-contact { margin-top: 16px; }
+.footer-contact a {
+  font-size: 12px; color: var(--teal);
+  font-family: 'JetBrains Mono', monospace;
+  display: block; margin-bottom: 4px;
+}
+.footer-links { display: flex; gap: 48px; flex-wrap: wrap; }
+.footer-col h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block; font-size: 13px;
+  color: var(--white2); margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--teal); }
+.footer-bottom {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.footer-legal { font-size: 11px; color: var(--muted); line-height: 1.6; }
+.footer-entity {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: rgba(110,110,122,0.5);
+  text-align: right;
+}
+
+
+/* ── COMPARISON TABLE ── */
+.compare-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+}
+.ct-header {
+  padding: 14px 16px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ct-col-label { background: var(--bg2); }
+.ct-col-before { background: rgba(255,107,107,0.06); border-left: 1px solid rgba(255,107,107,0.12); }
+.ct-col-after  { background: rgba(46,196,160,0.06);  border-left: 1px solid rgba(46,196,160,0.15); }
+.ct-header-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px; display: inline-block; width: fit-content;
+}
+.ct-header-badge.bad  { background: rgba(255,107,107,0.12); color: #FF6B6B; }
+.ct-header-badge.good { background: rgba(46,196,160,0.12);  color: var(--teal); }
+.ct-header-title {
+  font-size: 14px; font-weight: 700; color: var(--white);
+  letter-spacing: -0.01em;
+}
+.ct-label {
+  background: var(--bg2);
+  padding: 14px 16px;
+  font-size: 13px; color: var(--white2);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.ct-cell {
+  padding: 14px 16px;
+  font-size: 13px; font-weight: 600;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.ct-cell.bad  {
+  color: #FF6B6B;
+  background: rgba(255,107,107,0.04);
+  border-left: 1px solid rgba(255,107,107,0.1);
+}
+.ct-cell.good {
+  color: var(--teal);
+  background: rgba(46,196,160,0.04);
+  border-left: 1px solid rgba(46,196,160,0.12);
+}
+@media (max-width: 480px) {
+  .compare-table { grid-template-columns: 0.8fr 1fr 1fr; }
+  .ct-label, .ct-cell { padding: 12px 10px; font-size: 12px; }
+  .ct-header { padding: 12px 10px; }
+  .ct-header-title { font-size: 12px; }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.reveal {
+  opacity: 1; transform: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.hidden { opacity: 0; transform: translateY(24px); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ═══════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════ */
+.teal-line {
+  width: 40px; height: 2px;
+  background: var(--teal); border-radius: 99px;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 110 110" fill="none">
+          <path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/>
+          <text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text>
+        </svg>
+        <span class="nav-wordmark">parkt</span>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#why">Why Parkt</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#app">The App</a></li>
+        <li><a href="investors.html">Investors</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#waitlist" class="nav-cta">Join Waitlist</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="mobile-menu">
+  <a href="#why" onclick="closeMobileMenu()">Why Parkt</a>
+  <a href="#how" onclick="closeMobileMenu()">How It Works</a>
+  <a href="#app" onclick="closeMobileMenu()">The App</a>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="investors.html" onclick="closeMobileMenu()">Investors</a>
+  <a href="#waitlist" class="mob-cta" onclick="closeMobileMenu()">Join Waitlist</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <!-- Map city blocks — urban grid suggestion -->
+  <div class="hero-map-blocks">
+    <!-- District blocks -->
+    <div class="hero-map-block" style="left:44%;top:8%;width:12%;height:18%;opacity:0.8;"></div>
+    <div class="hero-map-block" style="left:58%;top:6%;width:8%;height:12%;opacity:0.6;"></div>
+    <div class="hero-map-block" style="left:68%;top:5%;width:14%;height:22%;opacity:0.7;"></div>
+    <div class="hero-map-block" style="left:84%;top:8%;width:10%;height:16%;opacity:0.5;"></div>
+    <div class="hero-map-block" style="left:44%;top:30%;width:9%;height:14%;opacity:0.9;"></div>
+    <div class="hero-map-block" style="left:55%;top:28%;width:11%;height:20%;opacity:0.7;"></div>
+    <div class="hero-map-block" style="left:68%;top:30%;width:7%;height:12%;opacity:0.8;"></div>
+    <div class="hero-map-block" style="left:77%;top:28%;width:13%;height:18%;opacity:0.6;"></div>
+    <div class="hero-map-block" style="left:92%;top:26%;width:8%;height:22%;opacity:0.5;"></div>
+    <div class="hero-map-block" style="left:44%;top:50%;width:14%;height:16%;opacity:0.7;"></div>
+    <div class="hero-map-block" style="left:60%;top:52%;width:8%;height:14%;opacity:0.9;"></div>
+    <div class="hero-map-block" style="left:70%;top:48%;width:12%;height:20%;opacity:0.6;"></div>
+    <div class="hero-map-block" style="left:84%;top:50%;width:9%;height:16%;opacity:0.8;"></div>
+    <div class="hero-map-block" style="left:45%;top:70%;width:10%;height:18%;opacity:0.6;"></div>
+    <div class="hero-map-block" style="left:57%;top:72%;width:13%;height:14%;opacity:0.7;"></div>
+    <div class="hero-map-block" style="left:72%;top:70%;width:8%;height:20%;opacity:0.5;"></div>
+    <div class="hero-map-block" style="left:82%;top:68%;width:11%;height:16%;opacity:0.8;"></div>
+    <!-- Main arterial roads (horizontal) -->
+    <div style="position:absolute;left:40%;right:0;top:27%;height:5px;background:rgba(255,255,255,0.09);border-radius:1px;"></div>
+    <div style="position:absolute;left:40%;right:0;top:49%;height:8px;background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+    <div style="position:absolute;left:40%;right:0;top:67%;height:5px;background:rgba(255,255,255,0.08);border-radius:1px;"></div>
+    <!-- Main arterial roads (vertical) -->
+    <div style="position:absolute;top:0;bottom:0;left:56%;width:5px;background:rgba(255,255,255,0.09);border-radius:1px;"></div>
+    <div style="position:absolute;top:0;bottom:0;left:70%;width:8px;background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+    <div style="position:absolute;top:0;bottom:0;left:83%;width:5px;background:rgba(255,255,255,0.08);border-radius:1px;"></div>
+  </div>
+  <!-- Teal glow at pin cluster -->
+  <div class="hero-map-glow" style="right:18%;top:20%;width:280px;height:280px;"></div>
+
+  <!-- Decorative floating pins — z-index 10 to sit above map layers -->
+  <div class="pin" style="left:62%;top:26%;animation-delay:0.8s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $8 / hr
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:78%;top:41%;animation-delay:1.0s;z-index:10;">
+    <div class="pin-bubble active">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#000"/><text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#2EC4A0" text-anchor="middle">p</text></svg>
+      $12 · 2 min walk
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:66%;top:63%;animation-delay:1.2s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $5 · Driveway
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:88%;top:30%;animation-delay:1.4s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $20 · Garage
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <!-- Additional price pins -->
+  <div class="pin" style="left:52%;top:18%;animation-delay:0.5s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="Outfit" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $15 · Lot
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:73%;top:22%;animation-delay:1.6s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="Outfit" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $6 / hr · Street
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:57%;top:50%;animation-delay:1.8s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="Outfit" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $25 · Event lot
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:83%;top:52%;animation-delay:2.0s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="Outfit" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $10 · 5 min walk
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:68%;top:72%;animation-delay:2.2s;z-index:10;">
+    <div class="pin-bubble">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="Outfit" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+      $4 · Driveway
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin" style="left:90%;top:62%;animation-delay:2.4s;z-index:10;">
+    <div class="pin-bubble active">
+      <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#111114"/><text x="56" y="68" font-family="Outfit" font-size="54" font-weight="800" fill="#2EC4A0" text-anchor="middle">p</text></svg>
+      $18 · Reserved ✓
+    </div>
+    <div class="pin-stem"></div><div class="pin-dot"></div>
+  </div>
+
+  <!-- User location dot -->
+  <div style="position:absolute;left:74%;top:55%;z-index:10;width:12px;height:12px;background:#2EC4A0;border-radius:50%;border:2.5px solid #111114;box-shadow:0 0 0 5px rgba(46,196,160,0.2),0 0 0 10px rgba(46,196,160,0.08);"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Launching in Minneapolis · 2026
+      </div>
+      <h1 class="hero-h1">
+        Parking,<br>
+        <span class="teal">finally</span><br>
+        figured out.
+      </h1>
+      <p class="hero-sub">
+        Find a spot, reserve it, and walk straight in. No circling. No stress. No app-hopping. Parkt is the one platform for every parking need — garages, driveways, airports, events.
+      </p>
+      <div class="hero-actions">
+        <a href="#waitlist" class="btn-primary">
+          Join the Waitlist
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#how" class="btn-secondary">
+          See how it works
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-n">$130B+</div>
+          <div class="hero-stat-l">U.S. PARKING MARKET</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">$73B</div>
+          <div class="hero-stat-l">WASTED FINDING SPOTS</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">6–8x</div>
+          <div class="hero-stat-l">SPACES PER VEHICLE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     WHY PARKT
+══════════════════════════════════════ -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left reveal">
+        <div class="eyebrow">The Problem</div>
+        <h2>Parking is broken.<br>We're fixing it.</h2>
+        <p>6–8 parking spaces exist for every registered car in America. The problem isn't supply — it's coordination. Drivers waste hours every year circling blocks, juggling apps, and paying at broken kiosks.</p>
+        <div class="why-stats">
+          <div class="why-stat">
+            <div class="why-stat-n">$73B</div>
+            <div class="why-stat-l">Wasted annually searching for parking</div>
+            <div class="why-stat-src">Source: INRIX</div>
+          </div>
+          <div class="why-stat">
+            <div class="why-stat-n">107 hrs</div>
+            <div class="why-stat-l">Avg. time lost per driver per year</div>
+            <div class="why-stat-src">Source: INRIX</div>
+          </div>
+          <div class="why-stat">
+            <div class="why-stat-n">30%</div>
+            <div class="why-stat-l">Of city traffic caused by parking search</div>
+            <div class="why-stat-src">Source: UCLA Shoup</div>
+          </div>
+          <div class="why-stat">
+            <div class="why-stat-n">930M gal</div>
+            <div class="why-stat-l">Of fuel wasted every year searching for parking</div>
+            <div class="why-stat-src">Source: ParkNav</div>
+          </div>
+        </div>
+      </div>
+      <div class="problem-visual reveal">
+        <div class="compare-table">
+          <!-- Header row -->
+          <div class="ct-header ct-col-label"></div>
+          <div class="ct-header ct-col-before">
+            <span class="ct-header-badge bad">Today</span>
+            <div class="ct-header-title">Without Parkt</div>
+          </div>
+          <div class="ct-header ct-col-after">
+            <span class="ct-header-badge good">Parkt</span>
+            <div class="ct-header-title">One app</div>
+          </div>
+          <!-- Row 1 -->
+          <div class="ct-label">Find a spot</div>
+          <div class="ct-cell bad">Circle for 10+ minutes</div>
+          <div class="ct-cell good">Reserved before you leave — or drive up, scan, and you're in.</div>
+          <!-- Row 2 -->
+          <div class="ct-label">Reserve in advance</div>
+          <div class="ct-cell bad">3–4 different apps</div>
+          <div class="ct-cell good">One tap. Done.</div>
+          <!-- Row 3 -->
+          <div class="ct-label">Airport parking</div>
+          <div class="ct-cell bad">Call ahead. Drive around. Hope.</div>
+          <div class="ct-cell good">Flight-tracked. Pre-paid. Specific location.</div>
+          <!-- Row 4 -->
+          <div class="ct-label">Event parking</div>
+          <div class="ct-cell bad">Arrive 45 min early</div>
+          <div class="ct-cell good">Your spot is waiting.</div>
+          <!-- Row 5 -->
+          <div class="ct-label">Pay</div>
+          <div class="ct-cell bad">Cash, kiosk, app, ticket — different every time.</div>
+          <div class="ct-cell good">One method. Every space. Every time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="how-header reveal">
+      <div class="eyebrow">How It Works</div>
+      <h2>Six steps.<br>Under three minutes.</h2>
+      <p>From pulling up to pulling in. First time takes under 3 minutes. Every time after that — under 15 seconds.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <h3>Search</h3>
+        <p>Find parking near your destination before you leave. Filter by price, coverage, EV charging, and distance.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Reserve</h3>
+        <p>Lock in your spot in one tap. Pay with Apple Pay, Google Pay, or your Parkt Wallet. Your spot is held.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        </div>
+        <h3>Navigate</h3>
+        <p>Get entrance-level directions — not just the address. Parkt takes you to the right door, right gate.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Access</h3>
+        <p>Scan your QR at the gate or let the camera read your plate. The arm goes up. Walk in.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+        </div>
+        <h3>Park</h3>
+        <p>Your spot is confirmed. Park with confidence knowing it's yours for the duration you reserved.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3>Pay</h3>
+        <p>Already done. Payment was taken at reservation. Leave whenever you want — no checkout required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     APP SCREENSHOTS
+══════════════════════════════════════ -->
+<section id="app">
+  <div class="container">
+    <div class="app-header reveal">
+      <div class="eyebrow">The App</div>
+      <h2>Built for humans,<br>not parking lots.</h2>
+      <p>Designed to disappear. The best interface is one you don't think about — you just park.</p>
+    </div>
+
+    <div class="phone-showcase reveal">
+
+      <!-- LEFT: MAP / HOME -->
+      <div class="phone-frame left">
+        <div class="ps-sbar"><span>9:41</span><span>▐▐ ▌▌</span></div>
+        <div class="ps ps-map" style="background:#16161A;position:relative;flex:1;">
+          <div class="ps-map-grid"></div>
+          <div class="ps-road-h" style="top:40%;left:0;right:0;height:5px;"></div>
+          <div class="ps-road-h" style="top:58%;left:0;right:0;height:4px;"></div>
+          <div class="ps-road-v" style="left:36%;top:0;bottom:0;width:5px;"></div>
+          <div class="ps-road-v" style="left:62%;top:0;bottom:0;width:4px;"></div>
+          <!-- Pins -->
+          <div class="ps-pin" style="left:37%;top:26%;">
+            <div class="ps-pin-b a">
+              <svg width="11" height="11" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#000"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#2EC4A0" text-anchor="middle">p</text></svg>
+              $8
+            </div>
+            <div class="ps-pin-stem" style="background:var(--teal);"></div>
+            <div class="ps-pin-dot"></div>
+          </div>
+          <div class="ps-pin" style="left:63%;top:20%;">
+            <div class="ps-pin-b d">
+              <svg width="10" height="10" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+              $12
+            </div>
+            <div class="ps-pin-stem" style="background:var(--muted);"></div>
+            <div class="ps-pin-dot"></div>
+          </div>
+          <div class="ps-pin" style="left:20%;top:34%;">
+            <div class="ps-pin-b d">
+              <svg width="10" height="10" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+              $5
+            </div>
+            <div class="ps-pin-stem" style="background:var(--muted);"></div>
+            <div class="ps-pin-dot"></div>
+          </div>
+          <!-- User dot -->
+          <div class="ps-user" style="position:absolute;left:39%;top:43%;"></div>
+          <!-- Top bar -->
+          <div style="position:absolute;top:30px;left:0;right:0;padding:0 12px;z-index:10;display:flex;align-items:center;gap:7px;">
+            <svg width="22" height="22" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+            <span style="font-size:16px;font-weight:800;color:var(--white);letter-spacing:-0.02em;">parkt</span>
+            <div style="margin-left:auto;background:var(--card);border:1px solid var(--border2);border-radius:7px;padding:3px 7px;font-size:9px;font-weight:700;color:var(--teal);font-family:'JetBrains Mono',monospace;">$47.50</div>
+          </div>
+          <!-- Bottom sheet -->
+          <div style="position:absolute;bottom:0;left:0;right:0;" class="ps-sheet">
+            <div class="ps-pill"></div>
+            <div class="ps-spot">
+              <div class="ps-spot-icon">
+                <svg width="16" height="16" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#000"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#2EC4A0" text-anchor="middle">p</text></svg>
+              </div>
+              <div>
+                <div class="ps-spot-name">ABC Ramps · Level 2</div>
+                <div class="ps-spot-sub">3 min walk · 42 open</div>
+              </div>
+              <div class="ps-spot-price">$8</div>
+            </div>
+            <button class="ps-find-btn">Find Parking</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: RESERVE -->
+      <div class="phone-frame center">
+        <div class="ps-sbar"><span>9:41</span><span>▐▐ ▌▌</span></div>
+        <div class="ps ps-reserve">
+          <div class="ps-res-nav">
+            <div class="ps-res-back">←</div>
+            <div class="ps-res-title">Reserve Spot</div>
+          </div>
+          <div class="ps-res-body">
+            <div style="display:flex;align-items:center;gap:8px;background:var(--card);border-radius:10px;padding:10px;margin-bottom:10px;border:1px solid rgba(46,196,160,0.2);">
+              <svg width="26" height="26" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+              <div style="flex:1;">
+                <div class="ps-spot-name">ABC Ramps — Level 2</div>
+                <div style="font-size:9px;color:var(--muted);margin-top:1px;">500 N 3rd St, Minneapolis</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="ps-res-price">$8</div>
+                <div class="ps-res-sub">/ HOUR</div>
+              </div>
+            </div>
+            <div class="ps-time" style="margin-bottom:8px;">
+              <div class="ps-time-b"><div class="ps-time-l">ARRIVE</div><div class="ps-time-v">6:30 PM</div></div>
+              <div style="color:var(--muted);font-size:12px;">→</div>
+              <div class="ps-time-b"><div class="ps-time-l">LEAVE</div><div class="ps-time-v">10:30 PM</div></div>
+              <div style="background:rgba(46,196,160,0.1);border:1px solid rgba(46,196,160,0.25);border-radius:7px;padding:4px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--teal);">4 hrs</div></div>
+            </div>
+            <div class="ps-receipt" style="margin-bottom:8px;">
+              <div class="ps-rr"><span class="ps-rr-l">Parking fee</span><span class="ps-rr-v">$32.00</span></div>
+              <div class="ps-rr"><span class="ps-rr-l">Service fee</span><span class="ps-rr-v">$1.99</span></div>
+              <div class="ps-rr"><span class="ps-rr-l">Wallet credit</span><span class="ps-rr-v" style="color:var(--teal);">−$5.00</span></div>
+              <div class="ps-rr total"><span class="ps-rr-l" style="color:var(--white);font-weight:700;">Total</span><span class="ps-rr-v">$28.99</span></div>
+            </div>
+            <div style="display:flex;gap:6px;margin-bottom:10px;">
+              <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:5px;">
+                <span style="font-size:12px;">💳</span>
+                <div><div style="font-size:9px;font-weight:600;color:var(--white);">Apple Pay</div><div style="font-size:7.5px;color:var(--muted);">····4291</div></div>
+              </div>
+              <div style="flex:1;background:rgba(46,196,160,0.08);border:1px solid rgba(46,196,160,0.2);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:5px;">
+                <svg width="13" height="13" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+                <div><div style="font-size:9px;font-weight:600;color:var(--teal);">Parkt Wallet</div><div style="font-size:7.5px;color:var(--muted);">$47.50</div></div>
+              </div>
+            </div>
+            <button class="ps-cta-btn">Confirm Reservation</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: WALLET -->
+      <div class="phone-frame right">
+        <div class="ps-sbar"><span>9:41</span><span>▐▐ ▌▌</span></div>
+        <div class="ps ps-wallet">
+          <div class="ps-w-top">
+            <div><div class="ps-w-title">Wallet</div><div class="ps-w-sub">GRANT K. · GOLD</div></div>
+            <div style="width:28px;height:28px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;border:1px solid var(--border);">⚙️</div>
+          </div>
+          <div class="ps-bal-card">
+            <div class="ps-bal-ey">Available Balance</div>
+            <div class="ps-bal-amt"><span>$</span>47.50</div>
+            <div class="ps-bal-rec">+$5.00 CREDITED TODAY</div>
+            <div class="ps-tier">
+              <div class="ps-tier-dot"></div>
+              <div class="ps-tier-name">Gold Member · 1,240 pts</div>
+            </div>
+          </div>
+          <div class="ps-w-acts">
+            <div class="ps-w-act"><div class="ps-w-act-icon">➕</div><div class="ps-w-act-name">Add Funds</div><div class="ps-w-act-sub">BANK · CARD</div></div>
+            <div class="ps-w-act"><div class="ps-w-act-icon">🎟</div><div class="ps-w-act-name">Promo Code</div><div class="ps-w-act-sub">ENTER CODE</div></div>
+          </div>
+          <div class="ps-acts-list">
+            <div class="ps-act-hdr">Recent Activity</div>
+            <div class="ps-act-item">
+              <div class="ps-act-ico in">
+                <svg width="13" height="13" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit',sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+              </div>
+              <div style="flex:1;"><div class="ps-act-name">Bundle Credit — Twins</div><div class="ps-act-date">TODAY · 3:14 PM</div></div>
+              <div class="ps-act-amt in">+$5.00</div>
+            </div>
+            <div class="ps-act-item">
+              <div class="ps-act-ico out">🚗</div>
+              <div style="flex:1;"><div class="ps-act-name">ABC Ramps · 4 hrs</div><div class="ps-act-date">MON · 7:02 PM</div></div>
+              <div class="ps-act-amt out">−$32.00</div>
+            </div>
+            <div class="ps-act-item">
+              <div class="ps-act-ico in">✈️</div>
+              <div style="flex:1;"><div class="ps-act-name">MSP Airport Credit</div><div class="ps-act-date">SAT · 11:20 AM</div></div>
+              <div class="ps-act-amt in">+$10.00</div>
+            </div>
+          </div>
+          <div class="ps-nav">
+            <div class="ps-nav-i"><span class="ps-nav-icon">🗺️</span><span class="ps-nav-lbl">Find</span></div>
+            <div class="ps-nav-i"><span class="ps-nav-icon">📋</span><span class="ps-nav-lbl">Trips</span></div>
+            <div class="ps-nav-i on"><span class="ps-nav-icon">💳</span><div class="ps-nav-pip"></div><span class="ps-nav-lbl">Wallet</span></div>
+            <div class="ps-nav-i"><span class="ps-nav-icon">👤</span><span class="ps-nav-lbl">Profile</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     INVESTORS
+══════════════════════════════════════ -->
+<section id="investors">
+  <div class="container">
+    <div class="investor-header reveal">
+      <div class="eyebrow">For Investors</div>
+      <h2>A $130B market<br>waiting to be digitized.</h2>
+      <p>Parkt is raising a pre-seed round to prove the model in Minneapolis before a national rollout. We are looking for investors who understand platform businesses.</p>
+    </div>
+
+    
+      </div>
+    </div>
+
+    <div class="raise-banner reveal">
+      <div class="raise-left">
+        <div class="raise-eyebrow">Pre-Seed Round · Now Open</div>
+        <div class="raise-amount">$750K – $1.25M</div>
+        <p class="raise-desc">We're raising to build the MVP, sign our first parking operators, and prove the model before our Seed raise.</p>
+      </div>
+      <div class="raise-right">
+        <div class="raise-detail">
+          <div class="raise-detail-dot"></div>
+          <span class="raise-detail-text">Pre-seed equity round</span>
+        </div>
+        <div class="raise-detail">
+          <div class="raise-detail-dot"></div>
+          <span class="raise-detail-text">Minneapolis beachhead, national vision</span>
+        </div>
+        <div class="raise-detail">
+          <div class="raise-detail-dot"></div>
+          <span class="raise-detail-text">Full deck + business plan available</span>
+        </div>
+        <div class="raise-detail">
+          <div class="raise-detail-dot"></div>
+          <span class="raise-detail-text">Grant Kolb · Founder & CEO</span>
+        </div>
+        <button class="raise-cta" onclick="openContactModal()" style="cursor:pointer;font-family:'Outfit',sans-serif;">Request the Deck &#x2192;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     WAITLIST
+══════════════════════════════════════ -->
+<section id="waitlist">
+  <div class="container">
+    <div class="waitlist-inner reveal">
+      <div class="eyebrow">Join the Waitlist</div>
+      <h2>Be first to <span class="teal">park smarter.</span></h2>
+      <p>We're launching in Minneapolis in 2026. Sign up to get early access, launch pricing, and first dibs on Parkt Gold status.</p>
+      <form class="waitlist-form" onsubmit="handleWaitlist(event)">
+        <input type="email" class="waitlist-input" placeholder="your@email.com" required id="waitlist-email">
+        <button type="submit" class="waitlist-btn">Get Early Access</button>
+      </form>
+      <div class="waitlist-success" id="waitlist-success">
+        ✓ You're on the list. We'll be in touch before launch.
+      </div>
+      <p class="waitlist-note">No spam. No sharing. Just parking.</p>
+      <div class="city-tags">
+        <div class="city-tag active">📍 Minneapolis · Launching 2026</div>
+        <div class="city-tag">Phoenix · Coming Soon</div>
+        <div class="city-tag">Denver · Coming Soon</div>
+        <div class="city-tag">Nashville · Coming Soon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="26" height="26" viewBox="0 0 110 110" fill="none">
+            <path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/>
+            <text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text>
+          </svg>
+          <span class="footer-logo-text">parkt</span>
+        </div>
+        <p class="footer-tagline">The operating system for parking. Find, reserve, and pay in seconds — anywhere.</p>
+        <div class="footer-contact" style="display:flex;align-items:center;gap:18px;margin-top:16px;">
+          <a href="https://instagram.com/getparkt" target="_blank" title="@getparkt on Instagram" aria-label="Instagram" style="color:var(--muted);transition:color 0.2s;display:inline-flex;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://x.com/getparkt" target="_blank" title="@getparkt on X" aria-label="X / Twitter" style="color:var(--muted);transition:color 0.2s;display:inline-flex;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/getparkt" target="_blank" title="Parkt on LinkedIn" aria-label="LinkedIn" style="color:var(--muted);transition:color 0.2s;display:inline-flex;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#how">How It Works</a>
+          <a href="#app">The App</a>
+          <a href="#waitlist">Join Waitlist</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">About</a>
+          <a href="investors.html">Investors</a>
+          <button onclick="openContactModal()" style="background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;color:var(--white2);padding:0;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--white2)'">Contact</button>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="host-agreement.html">Host Agreement</a>
+          <a href="#">Host Agreement</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        © 2026 Parkt LLC. All rights reserved.<br>
+        This website does not constitute an offer to sell securities.
+      </div>
+      <div class="footer-entity">
+        Parkt LLC · Minnesota LLC<br>
+        File No. 1568208300021<br>
+        Excelsior, MN 55331<br>
+        getparkt.com
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Scroll reveal — progressive enhancement only
+// Elements are visible by default; animation applies if JS + IntersectionObserver work
+if ('IntersectionObserver' in window) {
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el => el.classList.add('hidden'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.remove('hidden');
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+}
+
+// Waitlist form
+function handleWaitlist(e) {
+  e.preventDefault();
+  const email = document.getElementById('waitlist-email').value;
+  const form = document.querySelector('.waitlist-form');
+  const success = document.getElementById('waitlist-success');
+  if (!email) return;
+  form.style.opacity = '0.5';
+  setTimeout(() => {
+    form.style.display = 'none';
+    success.style.display = 'block';
+  }, 800);
+}
+</script>
+
+<!-- CONTACT MODAL -->
+<div id="contact-modal" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#1C1C20;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:40px;max-width:500px;width:100%;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="closeContactModal()" style="position:absolute;top:14px;right:14px;background:#222227;border:1px solid rgba(255,255,255,0.07);color:#6E6E7A;border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:'Outfit',sans-serif;">&#x2715; Close</button>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#2EC4A0;text-transform:uppercase;margin-bottom:8px;">Get in Touch</div>
+    <div style="font-size:20px;font-weight:800;color:#EEEEF2;letter-spacing:-0.02em;margin-bottom:20px;">Send us a message</div>
+    <form name="contact" method="POST" data-netlify="true" id="site-contact-form" style="display:flex;flex-direction:column;gap:14px;">
+      <input type="hidden" name="form-name" value="contact">
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label style="font-size:11px;color:#6E6E7A;font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">YOUR NAME</label>
+        <input type="text" name="name" required placeholder="Full name" style="background:#222227;border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:12px 14px;color:#EEEEF2;font-family:'Outfit',sans-serif;font-size:14px;outline:none;width:100%;" onfocus="this.style.borderColor='rgba(46,196,160,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label style="font-size:11px;color:#6E6E7A;font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">EMAIL ADDRESS</label>
+        <input type="email" name="email" required placeholder="your@email.com" style="background:#222227;border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:12px 14px;color:#EEEEF2;font-family:'Outfit',sans-serif;font-size:14px;outline:none;width:100%;" onfocus="this.style.borderColor='rgba(46,196,160,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label style="font-size:11px;color:#6E6E7A;font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">I AM A</label>
+        <select name="type" style="background:#222227;border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:12px 14px;color:#EEEEF2;font-family:'Outfit',sans-serif;font-size:14px;outline:none;width:100%;">
+          <option value="">Select one...</option>
+          <option value="driver">Driver / Potential user</option>
+          <option value="operator">Parking operator</option>
+          <option value="investor">Investor</option>
+          <option value="talent">Potential team member</option>
+          <option value="media">Press / Media</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label style="font-size:11px;color:#6E6E7A;font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">MESSAGE (optional)</label>
+        <textarea name="message" rows="3" placeholder="What's on your mind?" style="background:#222227;border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:12px 14px;color:#EEEEF2;font-family:'Outfit',sans-serif;font-size:14px;outline:none;resize:vertical;width:100%;" onfocus="this.style.borderColor='rgba(46,196,160,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"></textarea>
+      </div>
+      <button type="submit" style="background:#28B394;color:#000;font-weight:800;padding:13px 24px;border-radius:10px;font-size:14px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;">Send Message &#x2192;</button>
+    </form>
+    <div id="site-contact-success" style="display:none;text-align:center;padding:32px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">&#x2713;</div>
+      <div style="font-size:16px;font-weight:700;color:#EEEEF2;margin-bottom:8px;">Message sent</div>
+      <div style="font-size:13px;color:#6E6E7A;">We'll be in touch soon.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleMobileMenu() {
+  var menu = document.getElementById('mobile-menu');
+  var btn = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close mobile menu on resize
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 768) closeMobileMenu();
+});
+
+function openContactModal() {
+  var m = document.getElementById('contact-modal');
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeContactModal() {
+  document.getElementById('contact-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('contact-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeContactModal();
+  });
+  var form = document.getElementById('site-contact-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(new FormData(form)).toString()})
+        .then(function() {
+          form.style.display = 'none';
+          document.getElementById('site-contact-success').style.display = 'block';
+        })
+        .catch(function() { form.submit(); });
+    });
+  }
+});
+</script>
+</body>
+</html>
