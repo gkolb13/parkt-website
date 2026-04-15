@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="About Parkt — The story behind the operating system for parking. Meet Grant Kolb, Founder & CEO.">
+<title>About — parkt</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2EC4A0;
+  --teal-btn:  #28B394;
+  --teal-soft: rgba(46,196,160,0.08);
+  --teal-glow: rgba(46,196,160,0.15);
+  --bg:        #111114;
+  --bg2:       #17171A;
+  --card:      #1C1C20;
+  --card2:     #222227;
+  --white:     #EEEEF2;
+  --white2:    #C8C8D0;
+  --muted:     #6E6E7A;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.12);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+.container { width:100%; max-width:1100px; margin:0 auto; padding:0 32px; }
+@media (max-width:640px) { .container { padding:0 20px; } }
+.mono { font-family:'JetBrains Mono', monospace; }
+.eyebrow {
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px; letter-spacing:0.25em;
+  text-transform:uppercase; color:var(--teal);
+  margin-bottom:16px;
+}
+.teal { color: var(--teal); }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:16px 0;
+  background:#111114;
+  border-bottom:1px solid var(--border);
+}
+.nav-inner { display:flex; align-items:center; justify-content:space-between; }
+.nav-logo { display:flex; align-items:center; gap:6px; }
+.nav-wordmark { font-size:20px; font-weight:800; color:var(--white); letter-spacing:-0.02em; }
+.nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+.nav-links a { font-size:13px; font-weight:500; color:var(--muted); transition:color 0.2s; }
+.nav-links a:hover { color:var(--white); }
+.nav-links a.active { color:var(--white); }
+.nav-cta { background:var(--teal-btn); color:#000 !important; font-weight:700 !important; padding:8px 18px; border-radius:8px; font-size:13px !important; transition:opacity 0.2s !important; }
+.nav-cta:hover { opacity:0.88; }
+@media (max-width:768px) { .nav-links { display:none; } }
+
+/* ── HERO ── */
+.about-hero {
+  padding: 140px 0 80px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.about-hero::before {
+  content:'';
+  position:absolute; top:-100px; right:-100px;
+  width:600px; height:600px;
+  background:radial-gradient(circle, rgba(46,196,160,0.05) 0%, transparent 65%);
+  border-radius:50%; pointer-events:none;
+}
+.about-hero-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:center;
+}
+@media (max-width:768px) { .about-hero-grid { grid-template-columns:1fr; gap:48px; } }
+.about-hero-left h1 {
+  font-size:clamp(40px, 6vw, 68px);
+  font-weight:900; letter-spacing:-0.03em;
+  line-height:1.05; margin-bottom:24px;
+}
+.about-hero-left p {
+  font-size:17px; color:var(--white2);
+  line-height:1.75; margin-bottom:32px;
+  max-width:480px;
+}
+.about-hero-right {
+  display:flex; flex-direction:column; gap:16px;
+}
+.origin-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px; padding:24px;
+  position:relative; overflow:hidden;
+}
+.origin-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:3px; background:var(--teal);
+}
+.origin-card-label {
+  font-family:'JetBrains Mono', monospace;
+  font-size:9px; letter-spacing:0.18em;
+  color:var(--teal); text-transform:uppercase;
+  margin-bottom:10px;
+}
+.origin-card p {
+  font-size:14px; color:var(--white2); line-height:1.7;
+  font-style:italic;
+}
+.origin-card-attr {
+  margin-top:12px; font-size:12px;
+  color:var(--muted); font-weight:600;
+}
+
+/* ── MISSION ── */
+.mission {
+  padding:100px 0;
+  background:var(--bg2);
+  text-align:center;
+}
+.mission-inner { max-width:720px; margin:0 auto; }
+.mission h2 {
+  font-size:clamp(28px, 4vw, 46px);
+  font-weight:900; letter-spacing:-0.02em;
+  line-height:1.1; margin-bottom:20px;
+}
+.mission p {
+  font-size:18px; color:var(--white2);
+  line-height:1.75; margin-bottom:48px;
+}
+.mission-values {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:16px; text-align:left;
+}
+@media (max-width:640px) { .mission-values { grid-template-columns:1fr; } }
+.mv-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px; padding:22px;
+  transition:border-color 0.2s;
+}
+.mv-card:hover { border-color:rgba(46,196,160,0.25); }
+.mv-icon {
+  font-size:22px; margin-bottom:12px; color:var(--teal);
+}
+.mv-title {
+  font-size:14px; font-weight:700; color:var(--white);
+  margin-bottom:6px; letter-spacing:-0.01em;
+}
+.mv-desc { font-size:12px; color:var(--muted); line-height:1.6; }
+
+/* ── ESG STRIP ── */
+.esg-strip {
+  padding:48px 0;
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.esg-inner {
+  display:flex; align-items:center; gap:40px;
+  flex-wrap:wrap;
+}
+.esg-label {
+  font-family:'JetBrains Mono', monospace;
+  font-size:9px; letter-spacing:0.2em;
+  color:var(--teal); text-transform:uppercase;
+  white-space:nowrap;
+}
+.esg-text {
+  font-size:15px; color:var(--white2); line-height:1.7;
+  flex:1; min-width:260px;
+}
+.esg-stat {
+  text-align:center; flex-shrink:0;
+}
+.esg-stat-n {
+  font-size:28px; font-weight:900; color:var(--teal);
+  letter-spacing:-0.02em; line-height:1;
+}
+.esg-stat-l {
+  font-family:'JetBrains Mono', monospace;
+  font-size:9px; color:var(--muted);
+  letter-spacing:0.1em; text-transform:uppercase;
+  margin-top:4px;
+}
+
+/* ── TEAM ── */
+.team {
+  padding:100px 0;
+  background:var(--bg);
+}
+.team-header { margin-bottom:56px; }
+.team-header h2 {
+  font-size:clamp(28px, 4vw, 46px);
+  font-weight:900; letter-spacing:-0.02em; margin-bottom:12px;
+}
+.team-header p { font-size:16px; color:var(--white2); max-width:480px; }
+.team-grid {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:24px;
+}
+@media (max-width:768px) { .team-grid { grid-template-columns:1fr; } }
+
+/* Founder card */
+.founder-card {
+  background:var(--card);
+  border:1px solid var(--border2);
+  border-radius:20px; padding:36px;
+  position:relative; overflow:hidden;
+  grid-column:1;
+}
+.founder-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:3px; background:var(--teal);
+}
+.founder-avatar {
+  width:72px; height:72px;
+  background:linear-gradient(135deg, #1B2825, #0F1A18);
+  border:2px solid rgba(46,196,160,0.3);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:20px;
+  font-size:28px; font-weight:900;
+  color:var(--teal); font-family:'Outfit', sans-serif;
+  letter-spacing:-0.02em;
+}
+.founder-name {
+  font-size:22px; font-weight:800; color:var(--white);
+  letter-spacing:-0.02em; margin-bottom:4px;
+}
+.founder-title {
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px; letter-spacing:0.15em;
+  color:var(--teal); text-transform:uppercase;
+  margin-bottom:20px;
+}
+.founder-bio {
+  font-size:14px; color:var(--white2);
+  line-height:1.75; margin-bottom:24px;
+}
+.founder-credentials {
+  display:flex; flex-direction:column; gap:10px;
+  margin-bottom:24px;
+}
+.fc-item { display:flex; align-items:flex-start; gap:10px; }
+.fc-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--teal); flex-shrink:0; margin-top:6px;
+  box-shadow:0 0 4px var(--teal);
+}
+.fc-text { font-size:13px; color:var(--white2); line-height:1.5; }
+.fc-text strong { color:var(--white); font-weight:600; }
+.founder-links { display:flex; gap:10px; flex-wrap:wrap; }
+.founder-link {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--card2);
+  border:1px solid var(--border2);
+  border-radius:8px; padding:8px 14px;
+  font-size:12px; font-weight:600; color:var(--white2);
+  transition:border-color 0.2s, color 0.2s;
+}
+.founder-link:hover { border-color:rgba(46,196,160,0.3); color:var(--teal); }
+
+/* Joining card */
+.joining-card {
+  background:linear-gradient(145deg, #1B2825 0%, #111114 60%, #161419 100%);
+  border:1px solid rgba(46,196,160,0.2);
+  border-radius:20px; padding:36px;
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.joining-card::before {
+  content:'';
+  position:absolute; top:-40px; right:-40px;
+  width:200px; height:200px;
+  background:radial-gradient(circle, rgba(46,196,160,0.08) 0%, transparent 65%);
+  border-radius:50%;
+}
+.joining-eyebrow {
+  font-family:'JetBrains Mono', monospace;
+  font-size:9px; letter-spacing:0.2em;
+  color:var(--teal); text-transform:uppercase; margin-bottom:16px;
+}
+.joining-card h3 {
+  font-size:24px; font-weight:800; color:var(--white);
+  letter-spacing:-0.02em; margin-bottom:14px; line-height:1.2;
+}
+.joining-card > div > p {
+  font-size:14px; color:var(--white2);
+  line-height:1.7; margin-bottom:28px;
+}
+.joining-roles { display:flex; flex-direction:column; gap:8px; margin-bottom:28px; }
+.jr-item {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(46,196,160,0.06);
+  border:1px solid rgba(46,196,160,0.15);
+  border-radius:9px; padding:10px 14px;
+  cursor:pointer; transition:border-color 0.2s, background 0.2s;
+  position:relative;
+}
+.jr-item:hover { border-color:rgba(46,196,160,0.35); background:rgba(46,196,160,0.1); }
+.jr-title { font-size:13px; font-weight:600; color:var(--white); flex:1; }
+.jr-badge {
+  font-family:'JetBrains Mono', monospace;
+  font-size:8px; color:var(--teal);
+  background:rgba(46,196,160,0.1);
+  border:1px solid rgba(46,196,160,0.2);
+  border-radius:4px; padding:2px 7px;
+  letter-spacing:0.06em; white-space:nowrap;
+}
+.jr-arrow {
+  font-size:11px; color:var(--teal); opacity:0.7;
+}
+
+/* Job description modal */
+.jd-modal {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center; padding:24px;
+}
+.jd-modal.open { display:flex; }
+.jd-panel {
+  background:var(--card); border:1px solid var(--border2);
+  border-radius:20px; padding:40px; max-width:680px; width:100%;
+  max-height:80vh; overflow-y:auto; position:relative;
+}
+.jd-close {
+  position:absolute; top:16px; right:16px;
+  background:var(--card2); border:1px solid var(--border);
+  color:var(--muted); border-radius:8px; padding:6px 12px;
+  font-size:12px; cursor:pointer; font-family:'Outfit',sans-serif;
+  transition:color 0.2s;
+}
+.jd-close:hover { color:var(--white); }
+.jd-role {
+  font-family:'JetBrains Mono', monospace;
+  font-size:9px; letter-spacing:0.2em; color:var(--teal);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.jd-title {
+  font-size:24px; font-weight:800; color:var(--white);
+  letter-spacing:-0.02em; margin-bottom:6px;
+}
+.jd-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+.jd-badge {
+  font-family:'JetBrains Mono', monospace; font-size:8px;
+  padding:3px 9px; border-radius:5px; letter-spacing:0.06em;
+  background:rgba(46,196,160,0.1); color:var(--teal);
+  border:1px solid rgba(46,196,160,0.2);
+}
+.jd-section { margin-bottom:20px; }
+.jd-section-title {
+  font-size:12px; font-weight:700; color:var(--white);
+  letter-spacing:0.02em; margin-bottom:8px;
+  text-transform:uppercase; font-family:'JetBrains Mono',monospace;
+  font-size:9px; letter-spacing:0.15em;
+}
+.jd-section p { font-size:13px; color:var(--white2); line-height:1.7; }
+.jd-section ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.jd-section ul li {
+  font-size:13px; color:var(--white2); line-height:1.6;
+  padding-left:14px; position:relative;
+}
+.jd-section ul li::before {
+  content:'◆'; position:absolute; left:0;
+  color:var(--teal); font-size:7px; top:4px;
+}
+.jd-apply {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--teal-btn); color:#000;
+  font-weight:800; padding:12px 22px;
+  border-radius:10px; font-size:14px; margin-top:8px;
+  cursor:pointer; border:none; font-family:'Outfit',sans-serif;
+  transition:opacity 0.15s;
+}
+.jd-apply:hover { opacity:0.88; }
+
+.joining-cta {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--teal-btn); color:#000;
+  font-weight:800; padding:13px 24px;
+  border-radius:10px; font-family:'Outfit', sans-serif;
+  font-size:14px; cursor:pointer; border:none;
+  transition:transform 0.15s, box-shadow 0.15s;
+  box-shadow:0 6px 24px rgba(46,196,160,0.2);
+}
+.joining-cta:hover { transform:translateY(-1px); box-shadow:0 10px 32px rgba(46,196,160,0.3); }
+
+/* ── THE STORY ── */
+.story {
+  padding:100px 0;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.story-grid {
+  display:grid; grid-template-columns:1fr 2fr;
+  gap:80px; align-items:start;
+}
+@media (max-width:768px) { .story-grid { grid-template-columns:1fr; gap:40px; } }
+.story-left h2 {
+  font-size:clamp(28px, 4vw, 42px);
+  font-weight:900; letter-spacing:-0.02em;
+  line-height:1.1; margin-bottom:16px;
+}
+.story-left p { font-size:14px; color:var(--muted); line-height:1.7; }
+.story-block {
+  padding:28px 0;
+  border-bottom:1px solid var(--border);
+}
+.story-block:first-child { padding-top:0; }
+.story-block:last-child { border-bottom:none; }
+.story-block-label {
+  font-family:'JetBrains Mono', monospace;
+  font-size:9px; letter-spacing:0.2em;
+  color:var(--teal); text-transform:uppercase;
+  margin-bottom:10px;
+}
+.story-block h3 {
+  font-size:18px; font-weight:700; color:var(--white);
+  letter-spacing:-0.01em; margin-bottom:10px;
+}
+.story-block p { font-size:14px; color:var(--white2); line-height:1.75; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  padding:64px 0;
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.stats-bar-inner {
+  display:flex; justify-content:space-around;
+  align-items:center; flex-wrap:wrap; gap:32px;
+}
+.sb-stat { text-align:center; }
+.sb-n {
+  font-size:clamp(28px, 4vw, 42px);
+  font-weight:900; color:var(--teal);
+  letter-spacing:-0.02em; line-height:1;
+  margin-bottom:6px;
+}
+.sb-l {
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px; color:var(--muted);
+  letter-spacing:0.1em; text-transform:uppercase;
+}
+.sb-src {
+  font-family:'JetBrains Mono', monospace;
+  font-size:8px; color:rgba(110,110,122,0.5);
+  letter-spacing:0.08em; margin-top:4px;
+}
+
+/* ── VALUES ── */
+.values {
+  padding:80px 0;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.values-header { margin-bottom:40px; }
+.values-header h2 {
+  font-size:clamp(24px,3vw,36px); font-weight:900;
+  letter-spacing:-0.02em; margin-bottom:10px;
+}
+.values-header p { font-size:15px; color:var(--white2); max-width:480px; }
+.values-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+@media (max-width:640px) { .values-grid { grid-template-columns:1fr; } }
+.v-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:24px; transition:border-color 0.2s;
+}
+.v-card:hover { border-color:rgba(46,196,160,0.25); }
+.v-title { font-size:15px; font-weight:700; color:var(--white); margin-bottom:8px; }
+.v-title span { color:var(--teal); }
+.v-desc { font-size:13px; color:var(--muted); line-height:1.65; }
+
+/* ── CTA FOOTER ── */
+.about-cta {
+  padding:100px 0;
+  background:var(--bg);
+  text-align:center;
+}
+.about-cta-inner { max-width:560px; margin:0 auto; }
+.about-cta h2 {
+  font-size:clamp(28px, 4vw, 48px);
+  font-weight:900; letter-spacing:-0.02em;
+  margin-bottom:16px; line-height:1.1;
+}
+.about-cta p {
+  font-size:17px; color:var(--white2);
+  line-height:1.7; margin-bottom:36px;
+}
+.cta-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-primary {
+  background:var(--teal-btn); color:#000; font-weight:800;
+  padding:14px 28px; border-radius:11px;
+  font-family:'Outfit', sans-serif; font-size:15px;
+  cursor:pointer; border:none; letter-spacing:-0.01em;
+  box-shadow:0 8px 32px rgba(46,196,160,0.25);
+  transition:transform 0.15s, box-shadow 0.15s;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(46,196,160,0.35); }
+.btn-secondary {
+  background:var(--card); color:var(--white2);
+  font-weight:600; padding:14px 28px;
+  border-radius:11px; font-size:15px;
+  border:1px solid var(--border2);
+  transition:border-color 0.2s, color 0.2s;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-secondary:hover { border-color:rgba(46,196,160,0.3); color:var(--white); }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--bg); border-top:1px solid var(--border);
+  padding:40px 0 28px;
+}
+.footer-bottom {
+  display:flex; justify-content:space-between;
+  align-items:center; gap:16px; flex-wrap:wrap;
+}
+.footer-legal { font-size:11px; color:var(--muted); line-height:1.6; }
+.footer-entity { font-family:'JetBrains Mono', monospace; font-size:9px; color:rgba(110,110,122,0.5); text-align:right; }
+
+/* Hamburger menu */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 57px;
+  left: 0; right: 0;
+  background: #111114;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  z-index: 99;
+  padding: 16px 24px 24px;
+  flex-direction: column;
+  gap: 0;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--white2);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.nav-mobile-menu a:last-child { border-bottom: none; }
+.nav-mobile-menu a:hover { color: var(--teal); }
+.nav-mobile-menu .mob-cta {
+  margin-top: 16px;
+  background: var(--teal-btn);
+  color: #000 !important;
+  font-weight: 700 !important;
+  padding: 14px 20px;
+  border-radius: 10px;
+  text-align: center;
+  border-bottom: none !important;
+}
+@media (max-width: 768px) { .nav-hamburger { display: flex; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 110 110" fill="none">
+          <path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/>
+          <text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text>
+        </svg>
+        <span class="nav-wordmark">parkt</span>
+      </a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html#why">Why Parkt</a></li>
+        <li><a href="index.html#how">How It Works</a></li>
+        <li><a href="index.html#app">The App</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="investors.html">Investors</a></li>
+        <li><a href="index.html#waitlist" class="nav-cta">Join Waitlist</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="mobile-menu">
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
+  <a href="index.html#why" onclick="closeMobileMenu()">Why Parkt</a>
+  <a href="index.html#how" onclick="closeMobileMenu()">How It Works</a>
+  <a href="investors.html" onclick="closeMobileMenu()">Investors</a>
+  <a href="index.html#waitlist" class="mob-cta" onclick="closeMobileMenu()">Join Waitlist</a>
+</div>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="container">
+    <div class="about-hero-grid">
+      <div class="about-hero-left">
+        <div class="eyebrow">Our Story</div>
+        <h1>We're building<br>parking's<br><span class="teal">missing layer.</span></h1>
+        <p>Parking is a $130B industry running almost entirely on friction — broken kiosks, multiple apps, circling blocks, and crossed fingers. We're fixing that by building the connectivity layer that parking has always been missing. One city at a time.</p>
+        <a href="#team" class="btn-primary" style="display:inline-flex;">
+          Meet the team
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+      <div class="about-hero-right">
+        <div class="origin-card">
+          <div class="origin-card-label">The origin · MSP Airport</div>
+          <p>"I was rushing to catch a flight out of MSP and spent nearly 20 minutes trying to find parking — circling ramps, checking three different apps, getting no useful real-time information. I had the money, I had the time if I hadn't wasted it searching, and I nearly missed my flight over something that should have taken two minutes. I knew the spaces were there. What didn't exist was the layer connecting me to them."</p>
+          <div class="origin-card-attr">— Grant M. Kolb, Founder &amp; CEO</div>
+        </div>
+        <div class="origin-card" style="border-top-color:rgba(46,196,160,0.4);">
+          <div class="origin-card-label">The last straw · US Bank Stadium</div>
+          <p>"On the way to a concert we pulled into a ramp right next to the stadium. Someone greeted us at the entrance — cash only, $50. We didn't have cash. We had to back out into a traffic jam. Drove ten minutes to find another ramp that accepted cards, a block away, nearly empty. Two problems in one night: no way to know in advance, and a human having to handle every transaction. Both are fixable. Neither should still exist."</p>
+          <div class="origin-card-attr">— Grant M. Kolb</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-bar-inner">
+      <div class="sb-stat">
+        <div class="sb-n">$130B+</div>
+        <div class="sb-l">U.S. Parking Market</div>
+        <div class="sb-src">IBISWorld · 2024</div>
+      </div>
+      <div class="sb-stat">
+        <div class="sb-n">$73B</div>
+        <div class="sb-l">Wasted Annually</div>
+        <div class="sb-src">INRIX · 2023</div>
+      </div>
+      <div class="sb-stat">
+        <div class="sb-n">930M gal</div>
+        <div class="sb-l">Fuel Burned Searching</div>
+        <div class="sb-src">ParkNav · UCLA Shoup</div>
+      </div>
+      <div class="sb-stat">
+        <div class="sb-n">6–8x</div>
+        <div class="sb-l">Spaces Per Vehicle</div>
+        <div class="sb-src">UCLA Donald Shoup</div>
+      </div>
+      <div class="sb-stat">
+        <div class="sb-n">2026</div>
+        <div class="sb-l">Minneapolis Launch</div>
+        <div class="sb-src">Parkt LLC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="container">
+    <div class="mission-inner">
+      <div class="eyebrow">Our Mission</div>
+      <h2>When people think parking,<br>they think <span class="teal">Parkt.</span></h2>
+      <p>We are building the platform that finally connects drivers to available parking — removing the friction, the guesswork, and the wasted time that defines the experience today. Every city. Every space type. One platform.</p>
+      <div class="mission-values">
+        <div class="mv-card">
+          <div class="mv-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="mv-title">Zero friction</div>
+          <div class="mv-desc">Every product decision is measured against one question: could my grandparents complete this without help? If not, we simplify it.</div>
+        </div>
+        <div class="mv-card">
+          <div class="mv-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div class="mv-title">Connectivity first</div>
+          <div class="mv-desc">We're not building another parking app. We're building the connectivity layer that makes all parking findable, reservable, and accessible — before you leave the house.</div>
+        </div>
+        <div class="mv-card">
+          <div class="mv-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2EC4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="mv-title">Operators win too</div>
+          <div class="mv-desc">Parkt only works if parking operators earn more. Our model is designed to grow their revenue, not extract from it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESG STRIP -->
+<div class="esg-strip">
+  <div class="container">
+    <div class="esg-inner">
+      <div class="esg-label">Environmental Impact</div>
+      <div class="esg-text">
+        930 million gallons of fuel burn every year in the United States from drivers circling for parking — one of the most avoidable sources of urban vehicle emissions. Every reservation made through Parkt is a driver who went directly to their spot. No circling. No wasted fuel. At scale, that's a measurable environmental outcome — not a marketing claim, but a direct result of the product working as designed.
+      </div>
+      <div class="esg-stat">
+        <div class="esg-stat-n">930M</div>
+        <div class="esg-stat-l">Gallons saved<br>when Parkt works</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="team-header">
+      <div class="eyebrow">The Team</div>
+      <h2>Small team.<br>Big vision.</h2>
+      <p>We're a lean founding team building fast. The best seats are still open.</p>
+    </div>
+    <div class="team-grid">
+
+      <!-- Founder -->
+      <div class="founder-card">
+        <div class="founder-avatar">GK</div>
+        <div class="founder-name">Grant M. Kolb</div>
+        <div class="founder-title">Founder &amp; CEO</div>
+        <p class="founder-bio">
+          Grant built Parkt out of a frustration he couldn't stop thinking about. Years of constant travel for work — airports, stadiums, city centers across the country — meant years of experiencing the same broken parking reality in every market. The apps didn't talk to each other. The spaces existed but couldn't be found. The transactions still required a human at a booth taking cash. Every city, same problem. He kept waiting for someone to fix it. Eventually he decided that someone was going to be him.
+          <br><br>
+          Before founding Parkt, Grant was an early employee at a fast-growing reinsurance brokerage — helping scale the business from a small startup to a major market player in six years. He brings deep experience in complex market structures, risk frameworks, pricing analytics, and building relationships in industries that run on trust.
+        </p>
+        <div class="founder-credentials">
+          <div class="fc-item">
+            <div class="fc-dot"></div>
+            <div class="fc-text"><strong>Startup reinsurance broker</strong> — Early employee. Scaled a business from zero to major market presence in 6 years.</div>
+          </div>
+          <div class="fc-item">
+            <div class="fc-dot"></div>
+            <div class="fc-text"><strong>Minneapolis, MN</strong> — Building Parkt in the city where it launches first.</div>
+          </div>
+        </div>
+        <div class="founder-links">
+          
+          <a href="https://instagram.com/getparkt" target="_blank" class="founder-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @getparkt
+          </a>
+          <a href="https://x.com/getparkt" target="_blank" class="founder-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg>
+            @getparkt on X
+          </a>
+          <a href="https://www.linkedin.com/company/getparkt" target="_blank" class="founder-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Joining card -->
+      <div class="joining-card">
+        <div>
+          <div class="joining-eyebrow">Now Hiring</div>
+          <h3>The best seat<br>in the room<br>is still open.</h3>
+          <p>Parkt is raising its pre-seed round and assembling its founding team. If you want to build something that changes how millions of people interact with cities every day — this is that opportunity. Click any role to see the full position description.</p>
+          <div class="joining-roles">
+            <div class="jr-item" onclick="openJD('techcof')">
+              <svg width="16" height="16" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+              <span class="jr-title">Technical Co-Founder</span>
+              <span class="jr-badge">PRIORITY · EQUITY</span>
+              <span class="jr-arrow">→</span>
+            </div>
+            <div class="jr-item" onclick="openJD('opsgrowth')">
+              <svg width="16" height="16" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+              <span class="jr-title">Head of Operator Growth</span>
+              <span class="jr-badge">POST-SEED</span>
+              <span class="jr-arrow">→</span>
+            </div>
+            <div class="jr-item" onclick="openJD('designer')">
+              <svg width="16" height="16" viewBox="0 0 110 110" fill="none"><path d="M 46 15 Q 55 6 64 15 L 95 46 Q 104 55 95 64 L 64 95 L 55 104 L 46 95 L 15 64 Q 6 55 15 46 Z" fill="#2EC4A0"/><text x="56" y="68" font-family="'Outfit', sans-serif" font-size="54" font-weight="800" fill="#111114" text-anchor="middle">p</text></svg>
+              <span class="jr-title">Product Designer</span>
+              <span class="jr-badge">POST-SEED</span>
+              <span class="jr-arrow">→</span>
+            </div>
+          </div>
+        </div>
+        <a href="/cdn-cgi/l/email-protection#97f0e5f6f9e3fcf8fbf5a6a4d7f0faf6fefbb9f4f8faa8e4e2f5fdf2f4e3aac7f6e5fce3b7751703b7ddf8fef9fef9f0b7e3fff2b7c3f2f6fa" class="joining-cta">
+          Get in touch
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- JOB DESCRIPTION MODALS -->
+<div class="jd-modal" id="modal-techcof">
+  <div class="jd-panel">
+    <button class="jd-close" onclick="closeJD('techcof')">✕ Close</button>
+    <div class="jd-role">Founding Team · Equity Role</div>
+    <div class="jd-title">Technical Co-Founder</div>
+    <div class="jd-badges">
+      <span class="jd-badge">EQUITY</span>
+      <span class="jd-badge">MINNEAPOLIS, MN</span>
+      <span class="jd-badge">FULL-TIME</span>
+      <span class="jd-badge">IMMEDIATE</span>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">The Opportunity</div>
+      <p>Parkt is building the operating system for parking — a unified platform that connects every driver to every available parking space. We are pre-seed, pre-product, and pre-team. You would be the second person in the room, the first technical hire, and a co-founder in every meaningful sense. You would own the architecture, lead the build, and shape what this company becomes.</p>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">What You'll Build</div>
+      <ul>
+        <li>A React Native mobile app for iOS and Android — search, reserve, navigate, pay, access</li>
+        <li>A Node.js or FastAPI backend handling reservations, payments, and business logic</li>
+        <li>PostgreSQL + Redis data layer designed for multi-operator inventory from day one</li>
+        <li>Stripe Connect integration for marketplace payment splits and operator payouts</li>
+        <li>Mapbox dark-theme map with custom price pins and real-time availability</li>
+        <li>Operator web dashboard for inventory management, revenue tracking, and pricing</li>
+        <li>Serverless cloud infrastructure on AWS or GCP with GitHub Actions CI/CD</li>
+      </ul>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">What We're Looking For</div>
+      <ul>
+        <li>You have shipped a real consumer product — people use it, it handles real transactions</li>
+        <li>React Native or strong mobile experience with TypeScript</li>
+        <li>Backend experience with Node.js, Python/FastAPI, or similar</li>
+        <li>You have strong opinions about architecture and aren't afraid to defend them</li>
+        <li>You want equity, ownership, and to build something from zero — not a job</li>
+        <li>Based in or willing to relocate to Minneapolis, MN</li>
+      </ul>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">Compensation</div>
+      <p>Meaningful equity. Below-market salary pre-seed with step-ups at each funding milestone. This is a co-founder relationship — you participate in the upside of what you build.</p>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#5d35383131321d3a38292d3c2f3629733e3230" class="jd-apply">Apply Now →</a>
+  </div>
+</div>
+
+<div class="jd-modal" id="modal-opsgrowth">
+  <div class="jd-panel">
+    <button class="jd-close" onclick="closeJD('opsgrowth')">✕ Close</button>
+    <div class="jd-role">Founding Team · Post-Seed</div>
+    <div class="jd-title">Head of Operator Growth</div>
+    <div class="jd-badges">
+      <span class="jd-badge">EQUITY + SALARY</span>
+      <span class="jd-badge">MINNEAPOLIS, MN</span>
+      <span class="jd-badge">FULL-TIME</span>
+      <span class="jd-badge">POST-SEED 2027</span>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">The Opportunity</div>
+      <p>Parkt's supply side — the parking operators, lot owners, and property managers who list spaces on the platform — is the fuel that makes the consumer product work. The Head of Operator Growth owns that supply: finding operators, signing them, onboarding them, and keeping them. This is a relationship-driven, high-ownership role at the center of Parkt's growth engine.</p>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">What You'll Own</div>
+      <ul>
+        <li>End-to-end operator acquisition — from cold outreach to signed agreement to live listing</li>
+        <li>Building the operator onboarding process, playbook, and tooling</li>
+        <li>Relationship management with parking operators, garage owners, property managers</li>
+        <li>Identifying and prioritizing new operator segments — residential, enterprise, municipal</li>
+        <li>Collaborating with the product team on operator-facing tools and dashboard features</li>
+        <li>Hitting supply targets in Minneapolis before leading expansion to new cities</li>
+      </ul>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">What We're Looking For</div>
+      <ul>
+        <li>3–7 years in B2B sales, partnerships, or business development</li>
+        <li>Experience selling to property owners, operators, or real estate stakeholders is a strong plus</li>
+        <li>You enjoy the full sales cycle — prospecting, pitching, closing, and account management</li>
+        <li>Comfortable operating without a playbook in a startup environment</li>
+        <li>Minneapolis-based or willing to relocate</li>
+      </ul>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#19717c757576597e7c6d69786b726d377a7674" class="jd-apply">Express Interest →</a>
+  </div>
+</div>
+
+<div class="jd-modal" id="modal-designer">
+  <div class="jd-panel">
+    <button class="jd-close" onclick="closeJD('designer')">✕ Close</button>
+    <div class="jd-role">Founding Team · Post-Seed</div>
+    <div class="jd-title">Product Designer</div>
+    <div class="jd-badges">
+      <span class="jd-badge">EQUITY + SALARY</span>
+      <span class="jd-badge">MINNEAPOLIS, MN</span>
+      <span class="jd-badge">FULL-TIME</span>
+      <span class="jd-badge">POST-SEED 2027</span>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">The Opportunity</div>
+      <p>Parkt's core promise is that parking should feel effortless. The Product Designer is the person who makes that promise real — designing the flows, screens, and interactions that turn a complicated multi-step process into something that feels obvious. This is a high-ownership, high-impact role at a company where design is a competitive advantage, not an afterthought.</p>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">What You'll Own</div>
+      <ul>
+        <li>End-to-end product design for iOS and Android — from flows to final screens</li>
+        <li>The Parkt design system — components, tokens, and patterns built to scale</li>
+        <li>User research and usability testing — real drivers, real operators, real feedback</li>
+        <li>Operator dashboard UX — making complex inventory management feel intuitive</li>
+        <li>Close collaboration with the technical co-founder on buildable, beautiful solutions</li>
+        <li>Brand expression in product — maintaining the Parkt aesthetic across every surface</li>
+      </ul>
+    </div>
+    <div class="jd-section">
+      <div class="jd-section-title">What We're Looking For</div>
+      <ul>
+        <li>3–6 years of product design experience — mobile-first, consumer apps preferred</li>
+        <li>A portfolio that shows you can design for complexity without creating complexity</li>
+        <li>Proficiency in Figma and experience handing off to engineers cleanly</li>
+        <li>You care about the details — typography, spacing, micro-interactions, edge cases</li>
+        <li>You want to own the design of a product that millions of people will use every day</li>
+      </ul>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#335b565f5f5c7354564743524158471d505c5e" class="jd-apply">Express Interest →</a>
+  </div>
+</div>
+
+<!-- THE STORY -->
+<section class="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-left">
+        <div class="eyebrow">The Journey</div>
+        <h2>How we<br>got here.</h2>
+        <p style="margin-top:12px;">The honest version — no spin, no founder mythology. Just the real sequence of events.</p>
+      </div>
+      <div class="story-right">
+        <div class="story-block">
+          <div class="story-block-label">The problem · Ongoing</div>
+          <h3>The same broken experience, everywhere</h3>
+          <p>Years of business travel meant years of parking in airports, stadiums, city centers, and event venues across the country. The experience was identical in every city: multiple apps, no real-time information, no reservations, and a transaction that still required a human being at a booth. The infrastructure existed. The coordination layer connecting drivers to it did not.</p>
+        </div>
+        <div class="story-block">
+          <div class="story-block-label">The research · 2024–25</div>
+          <h3>The numbers confirmed it</h3>
+          <p>$73 billion wasted annually searching for parking. 107 hours per driver per year. 930 million gallons of fuel burned. 30% of city traffic caused by parking search. Six to eight spaces for every registered vehicle in the country. The data wasn't surprising — it was clarifying. This wasn't a niche problem. It was one of the most solvable inefficiencies in American urban life, and nobody had solved it.</p>
+        </div>
+        <div class="story-block">
+          <div class="story-block-label">The build · 2025–26</div>
+          <h3>Parkt LLC is formed</h3>
+          <p>Parkt LLC is registered in Minnesota. The business plan, investor deck, legal framework, brand system, and product architecture are built. The technical co-founder search begins. The first operator conversations start. The pre-seed round opens. The State Fair pilot is on the calendar.</p>
+        </div>
+        <div class="story-block">
+          <div class="story-block-label">The launch · 2026</div>
+          <h3>Minneapolis first</h3>
+          <p>The beachhead city strategy: prove the model in Minneapolis–St. Paul before expanding nationally. Build the flywheel. Demonstrate that a single platform can connect drivers, operators, and spaces in a way that works for everyone. Then move fast. The goal is simple — when people think parking in this city, they think Parkt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="container">
+    <div class="values-header">
+      <div class="eyebrow">How We Build</div>
+      <h2>Principles that<br>guide every decision.</h2>
+      <p>We don't have a large team or a long history. What we do have is a clear set of beliefs about how great products get built.</p>
+    </div>
+    <div class="values-grid">
+      <div class="v-card">
+        <div class="v-title"><span>Simple</span> beats clever.</div>
+        <div class="v-desc">The best product decision is almost always the one that removes something, not adds it. We design for the person who just wants to park — not the person who enjoys reading app documentation.</div>
+      </div>
+      <div class="v-card">
+        <div class="v-title"><span>Infrastructure</span> before features.</div>
+        <div class="v-desc">We build the foundation correctly before building fast. The connectivity layer — the data architecture, the operator relationships, the payment rails — has to be right from day one.</div>
+      </div>
+      <div class="v-card">
+        <div class="v-title"><span>Operators</span> are partners, not inventory.</div>
+        <div class="v-desc">We succeed when parking operators succeed. Every product decision that affects operators is evaluated through that lens. If it doesn't make their business better, we don't build it.</div>
+      </div>
+      <div class="v-card">
+        <div class="v-title"><span>The data</span> belongs to everyone who created it.</div>
+        <div class="v-desc">The demand intelligence Parkt accumulates belongs to the ecosystem that generates it. We use it to make every participant — drivers, operators, cities — better off. Not to extract from them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta">
+  <div class="container">
+    <div class="about-cta-inner">
+      <div class="eyebrow">Get Involved</div>
+      <h2>Ready to park<br><span class="teal">smarter?</span></h2>
+      <p>Whether you're a driver, a parking operator, an investor, or a potential team member — there's a place for you in what we're building.</p>
+      <div class="cta-row">
+        <a href="index.html#waitlist" class="btn-primary">
+          Join the Waitlist
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="btn-secondary" onclick="openContactModal()" style="cursor:pointer;font-family:'Outfit',sans-serif;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Contact Us
+        </button>
+      </div>
+
+      <!-- CONTACT MODAL -->
+      <div class="jd-modal" id="contact-modal">
+        <div class="jd-panel" style="max-width:520px;">
+          <button class="jd-close" onclick="closeContactModal()">&#x2715; Close</button>
+          <div class="jd-role">Get in Touch</div>
+          <div class="jd-title" style="font-size:20px;margin-bottom:20px;">Send us a message</div>
+          <form name="contact" method="POST" data-netlify="true" id="contact-form" style="display:flex;flex-direction:column;gap:14px;">
+            <input type="hidden" name="form-name" value="contact">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">YOUR NAME</label>
+              <input type="text" name="name" required placeholder="Full name" style="background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(46,196,160,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">EMAIL ADDRESS</label>
+              <input type="email" name="email" required placeholder="your@email.com" style="background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(46,196,160,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">I AM A</label>
+              <select name="type" style="background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none;">
+                <option value="">Select one...</option>
+                <option value="driver">Driver / Potential user</option>
+                <option value="operator">Parking operator or property manager</option>
+                <option value="investor">Investor</option>
+                <option value="talent">Potential team member</option>
+                <option value="media">Press / Media</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">MESSAGE</label>
+              <textarea name="message" rows="4" placeholder="What's on your mind?" style="background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none;resize:vertical;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(46,196,160,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"></textarea>
+            </div>
+            <button type="submit" class="jd-apply" style="width:100%;justify-content:center;margin-top:4px;">Send Message &#x2192;</button>
+          </form>
+          <div id="contact-success" style="display:none;text-align:center;padding:32px 0;">
+            <div style="font-size:32px;margin-bottom:12px;">&#x2713;</div>
+            <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;">Message sent</div>
+            <div style="font-size:13px;color:var(--muted);">We'll be in touch soon.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        © 2026 Parkt LLC. All rights reserved.<br>
+        This website is for informational purposes only and does not constitute an offer to sell securities.
+      </div>
+      <div class="footer-entity">
+        Parkt LLC · Minnesota LLC · File
